@@ -5,29 +5,78 @@ using UnityEngine.UI;
 
 public class HageGenerator : MonoBehaviour
 {
-    GameManager hage;
-
-    float speed = -18.0f;
+    //GameManager hage;
+    bool stop = true;
+    public bool click = false;
+    float speed = 0;
+    int count = 0;
+    Hair hairs;
+    
     
     // Start is called before the first frame update
     void Start()
     {
-        hage = GameObject.Find("GameManager").GetComponent<GameManager>();
+        hairs = GameObject.Find("Hair").GetComponent<Hair>();
         //hair = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     
-    /* Update is called once per frame
-    //void Update()
+     //Update is called once per frame
+    void Update()
+    {
+        transform.Translate(Time.deltaTime * speed, 0, 0);
+
+    if (hairs.make == true)
     {
         if (Input.GetMouseButtonDown(0))
         {
-             StartCoroutine("Coroutine");
-        }
+            //if (click == false)
+
+            
+                //count++;
+                //if (count > hairs.number)
+                {
+                    click = true;
+                }
+                    
+                
+            if (click == true)
+            {
+                speed = -18.0f;
+            }
+            
+        }   
+    }
+        
+        if (transform.position.x <= 0.18f)
+            {
+                if(stop){
+                    
+                    speed = 0;
+                    stop = false;
+                }
+                
+            }
+            
+            
+
+        
+           /*
+            {
+                if (!stop)
+                {
+                    stop = true;
+                    click = false;
+                }
+
+            
+            }*/
+             //StartCoroutine("Coroutine");
+        
         //if (transform.position.x <= 0)
-        {
+        
             //StopCoroutine("Coroutine");
-        }
+        
            if(transform.position.x <= -5.0f)
         {
             Destroy(gameObject);
@@ -63,7 +112,7 @@ public class HageGenerator : MonoBehaviour
     }*/
   
     
-    private IEnumerator Coroutine()
+    /*private IEnumerator Coroutine()
     {
         while(true)
         {
@@ -71,5 +120,5 @@ public class HageGenerator : MonoBehaviour
         yield return null;
         }
         
-    }
+    }*/
 }
