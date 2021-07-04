@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public GameObject [] pics;
     int number;
     public int count=0;
-    bool stop = true;
+    bool hageIsMade = true;
     //bool click = false;
     //float speed = 0;
     public GameObject picture;  
@@ -23,22 +23,23 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        if(stop)
-        {
+        if(hageIsMade)
+        {    
             if(Input.GetMouseButtonDown(0))
             {
                 number = Random.Range(0, pics.Length);        
                 picture = Instantiate(pics[number], new Vector3(7,0,0), Quaternion.identity);
-                stop = false;
+                hageIsMade = false;
             }
         }
-         
-        if(hairs.make == true)
+        if(hageIsMade == false)
         {
-            stop = true;
+            if(hairs.hairIsMade == true)
+            {
+                hageIsMade = true;
+            }
         }
-        
-                
+       
         
       
     }

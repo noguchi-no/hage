@@ -14,7 +14,7 @@ public class Hair : MonoBehaviour
     int counter = 0;
     public List<GameObject> hairList = new List<GameObject>();
     //public Transform hageTrans;
-    public bool make = true;
+    public bool hairIsMade = true;
     GameObject hairInstance;
     
     
@@ -30,7 +30,7 @@ public class Hair : MonoBehaviour
     void Update()
     {
 
-        if (make)
+        if (hairIsMade)
         {
             
             if (Input.GetMouseButtonDown(0))
@@ -46,12 +46,11 @@ public class Hair : MonoBehaviour
 
                         hairList.Add(hairInstance);
 
-                        
-                        
                         hairInstance.transform.SetParent(hage.picture.transform);
                     } 
                     //counter++;
-                    //make = false;                    
+                    hairIsMade = false;             
+                    //Debug.Log(number);       
             }
                 //if (counter >= 2 && counter <= number)    
                         //Destroy(transform.GetChild(0).gameObject);
@@ -61,19 +60,18 @@ public class Hair : MonoBehaviour
                 //Invoke("Delay", 2.0f);            
         }
 
-        if (make == false)
+        if (hairIsMade == false)
         {
             if(Input.GetMouseButtonDown(0))
             {
-                        Destroy(hairList[number);
-                        //Destroy(transform.GetChild(number).gameObject);
-                        number--;
-                        
-                        if(number == -1)
-                        {
-                            make = true;
-                            hairList.Clear();
-                        }
+                Destroy(hairList[number]);
+                //Destroy(transform.GetChild(number).gameObject);
+                number--;                
+                if(hairList != null && hairList.Count <= 0)
+                {
+                    hairList.Clear();
+                    hairIsMade = true;
+                }
             }
 
         }

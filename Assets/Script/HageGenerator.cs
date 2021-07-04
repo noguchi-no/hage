@@ -8,7 +8,7 @@ public class HageGenerator : MonoBehaviour
     //GameManager hage;
     bool stop = true;
     public bool click = false;
-    float speed = 0;
+    float speed = -18.0f;
     int count = 0;
     Hair hairs;
     
@@ -19,44 +19,37 @@ public class HageGenerator : MonoBehaviour
         hairs = GameObject.Find("Hair").GetComponent<Hair>();
         //hair = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
-
-    
      //Update is called once per frame
     void Update()
     {
         transform.Translate(Time.deltaTime * speed, 0, 0);
 
-    if (hairs.make == true)
-    {
-        if (Input.GetMouseButtonDown(0))
+        if (hairs.hairIsMade == true)
         {
+            if(Input.GetMouseButtonDown(0))
+            {
+                click = true;
+                            
+                if (click == true)
+                {
+                    speed = -18.0f;
+                }
+            }
+        }
+    
             //if (click == false)
 
-            
                 //count++;
                 //if (count > hairs.number)
-                {
-                    click = true;
-                }
-                    
-                
-            if (click == true)
+        if (transform.position.x <= 0.18f)
+        {
+            if(stop)
             {
-                speed = -18.0f;
+                speed = 0;
+                stop = false;
             }
             
-        }   
-    }
-        
-        if (transform.position.x <= 0.18f)
-            {
-                if(stop){
-                    
-                    speed = 0;
-                    stop = false;
-                }
-                
-            }
+        }
             
             
 
