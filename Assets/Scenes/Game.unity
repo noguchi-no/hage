@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 174fe0b8759bc4e66bd6b59400141757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pics:
+  hagePictures:
   - {fileID: 4573870932444695858, guid: 3be85f382fbbf4a7a931122ebeb033db, type: 3}
   - {fileID: 7858586343574370997, guid: db559f392da064d228b3277d3d0a9ae9, type: 3}
   - {fileID: 7548240157379779648, guid: 98999d1df066b4011951b444b3de3b80, type: 3}
@@ -161,7 +161,8 @@ MonoBehaviour:
   - {fileID: 4552135460924141385, guid: b52e40f0f0c97450382256a183a5aee8, type: 3}
   - {fileID: 500282100745281872, guid: 5edf19b2dcc1f4384addb6fb71769a37, type: 3}
   count: 0
-  picture: {fileID: 0}
+  currentPicture: {fileID: 0}
+  hairManager: {fileID: 1024020515}
 --- !u!4 &221263319
 Transform:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ GameObject:
   - component: {fileID: 1024020516}
   - component: {fileID: 1024020515}
   m_Layer: 0
-  m_Name: Hair
+  m_Name: HairManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,10 +289,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76ee7dca010b46f899951a8cd8eab9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hairs: {fileID: 3569293560383005735, guid: 64b5c98ca13074abbac06c47fe5aded2, type: 3}
-  number: 0
+  hairPrefab: {fileID: 3569293560383005735, guid: 64b5c98ca13074abbac06c47fe5aded2, type: 3}
   hairList: []
-  hairIsMade: 1
+  hasGeneratedHair: 0
+  isClear: 0
+  gameManager: {fileID: 221263318}
 --- !u!4 &1024020516
 Transform:
   m_ObjectHideFlags: 0
