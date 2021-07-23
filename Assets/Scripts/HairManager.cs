@@ -7,15 +7,19 @@ using UnityEngine.UI;
 public class HairManager : MonoBehaviour
 {
     public GameObject hairPrefab;
-    public List<GameObject> hairList = new List<GameObject>();
+    public static List<GameObject> hairList = new List<GameObject>();
     public bool hasGeneratedHair = false;
+
+    public GameObject countNumber;
+    int count = 0;
+    //float gameOverTime = 1.5f;
 
     //毛を全部消したか格納する
     public bool isClear = false;
 
 
     public GameManager gameManager;
-    int count = 0;    
+    
     
     // Update is called once per frame
     void Update()
@@ -28,6 +32,7 @@ public class HairManager : MonoBehaviour
             //ボタンが押されたら
             if (Input.GetMouseButtonDown(0))
             {   
+                    //gameOverTime = 1.5f;
                     
                     int hairCount = (int)Random.Range(1, 4.99f);
                 
@@ -54,17 +59,34 @@ public class HairManager : MonoBehaviour
             //ボタンが押されたら
             if(Input.GetMouseButtonDown(0))
             {
+                
 
                 if(hairList.Count == 0)
                 {
-
                     hasGeneratedHair = false;
                     isClear = true;
+                    
+                    /*Invoke("Empty", 1.5f);
+                    
+                    
+                    if(gameOverTime > 0.0f && gameOverTime < 1.5f)
+                    {
+                        Debug.Log("GameOver");
+                    }
+
+                    gameOverTime -= Time.deltaTime;
+
+                    if(gameOverTime <= 0.0f)
+                    {
+                        gameOverTime = 0.0f;
+                    }*/
 
                 }
+                
+                    
                 else
                 {
-
+                    count++;
                     Destroy(hairList[hairList.Count - 1]);
 
                     //リストからも消す
@@ -75,7 +97,16 @@ public class HairManager : MonoBehaviour
             }
 
         }
-                   
+
+        countNumber.GetComponent<Text>().text = count.ToString();
+
+        
+          
     }
-    
+    /*void Empty()
+        {
+            hasGeneratedHair = false;
+            isClear = true; 
+        }
+        */
 }

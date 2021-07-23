@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //ゲームの進行管理をするスクリプト
 public class GameManager : MonoBehaviour
@@ -13,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     public HairManager hairManager;
 
-    bool hasGeneratedHagePic = false;
+    public static bool hasGeneratedHagePic = false;
 
 
     // Update is called once per frame
@@ -34,18 +35,28 @@ public class GameManager : MonoBehaviour
 
                 hasGeneratedHagePic = true;
             }
+
+            
         
         } 
+        /*else if(HagePicture.isFlicked)
+        {
+            int number = Random.Range(0, hagePictures.Count);    
+
+            currentPicture = Instantiate(hagePictures[number], new Vector3(7,0,0), Quaternion.identity);
+
+            HagePicture.isFlicked = false;
+        }*/
         
-        //if(hageIsMade == false) 
-        //elseでよい
         else 
         {
 
-            if(hairManager.isClear) {
+            if(hairManager.isClear) 
+            //if(HairManager.hairList.Count == 0)
+            {
 
                 hasGeneratedHagePic = false;
-
+                
             }
 
         }   

@@ -9,20 +9,59 @@ public class HagePicture : MonoBehaviour
 {
     public bool isClicked = false;
 
-    bool stop = true;
+    
     float speed = -18.0f;
 
     HairManager hairManager;
+
+    public Sprite hageHappy;
+
+    SpriteRenderer hagePic;
+
+    Vector2 startPos;
+    Vector2 endPos;
+    
+    public static bool isFlicked = false; 
 
     void Start()
     {
 
         hairManager = GameObject.Find("HairManager").GetComponent<HairManager>();
 
+        hagePic = this.GetComponent<SpriteRenderer>();
+        
     }
+    //タッチした位置と指を離した位置を取得
+    void Flick()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            startPos = Input.mousePosition;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            Vector2 endPos = Input.mousePosition;
+            //GetDirection();
+            float swipeLength = endPos.x - startPos.x;
+
+            //string direction;
+
+            if (-30 > swipeLength)
+            {
+                speed = -18.0f;
+                isFlicked = true;
+            }
+            else
+            {
+                Debug.Log("gameover");
+            }
+            
+        }
+        
+    }
+
+    //void GetDirection()
     
-    
-     //Update is called once per frame
     void Update()
     {
 
@@ -61,15 +100,21 @@ public class HagePicture : MonoBehaviour
                 speed = 0;
 
             }
+            //毛が消えてたら
             else
             {
 
-                speed = -18.0f;
-
+                //speed = -18.0f;
+                Flick();
+                
             }
             
+            if(HairManager.hairList.Count == 0)
+            {
+                hagePic.sprite = hageHappy;
+            }
         } 
 
-    }   
+    }  
 
 }
