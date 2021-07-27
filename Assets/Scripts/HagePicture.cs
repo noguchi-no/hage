@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 //はげの画像を操るスクリプト
 public class HagePicture : MonoBehaviour
@@ -47,9 +47,9 @@ public class HagePicture : MonoBehaviour
                 isFlicked = true;
             
             } else {
-            
+                
                 Debug.Log("gameover");
-            
+                SceneManager.LoadScene("GameOver");
             }
             
         }
