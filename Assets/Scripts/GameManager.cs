@@ -4,62 +4,63 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //ゲームの進行管理をするスクリプト
-public class GameManager : MonoBehaviour
-{
-    
-    //どこで習ったんかしらんけど、ちゃんとしたリストの書き方はこう
-    public List<GameObject> hagePictures = new List<GameObject>();
-    public int count = 0;
-    public GameObject currentPicture;  
+public class GameManager : MonoBehaviour {
+    public List<GameObject> hagePrefabs = new List<GameObject>();
+    public int score;
+    public GameObject currentPicture;
+    public GameObject scoreText;
 
     public HairManager hairManager;
-
-    public static bool hasGeneratedHagePic = false;
-
+    public bool hasGeneratedHagePic;
+    public bool hasGeneratedFirstPic;
 
     // Update is called once per frame
     void Update()
     {
 
-        //はげ画像が生成されていなかったら
-        if(!hasGeneratedHagePic)
-        {    
+        scoreText.GetComponent<Text>().text = score.ToString();
 
-            //ボタンを押したら
-            if(Input.GetMouseButtonDown(0))
-            {
+        //ボタンを押したら
+        if(!hasGeneratedFirstPic) {
+
+            if(Input.GetMouseButtonDown(0)) {
+
+                hasGeneratedFirstPic = true;
                 
-                int number = Random.Range(0, hagePictures.Count);    
+                int number = Random.Range(0, hagePrefabs.Count);    
 
-                currentPicture = Instantiate(hagePictures[number], new Vector3(7,0,0), Quaternion.identity);
+                currentPicture = Instantiate(hagePrefabs[number], new Vector3(7,0,0), Quaternion.identity);
 
                 hasGeneratedHagePic = true;
+            
             }
 
-            
+        } else {
+
+            if(currentPicture.GetComponent<HagePicture>().isFlicked) {
+
+                int number = Random.Range(0, hagePrefabs.Count);    
+
+                currentPicture = Instantiate(hagePrefabs[number], new Vector3(7,0,0), Quaternion.identity);
+
+                hasGeneratedHagePic = true;
+
+            }
+
+        }
         
-        } 
-        /*else if(HagePicture.isFlicked)
-        {
-            int number = Random.Range(0, hagePictures.Count);    
+        if(currentPicture != null && currentPicture.GetComponent<HagePicture>().isClear) {
 
-            currentPicture = Instantiate(hagePictures[number], new Vector3(7,0,0), Quaternion.identity);
+            currentPicture.GetComponent<HagePicture>().Flick();
 
-            HagePicture.isFlicked = false;
-        }*/
-        
-        else 
-        {
-
-            if(hairManager.isClear) 
-            //if(HairManager.hairList.Count == 0)
-            {
+            if(currentPicture.GetComponent<HagePicture>().isFlicked) {
 
                 hasGeneratedHagePic = false;
-                
-            }
+                hairManager.hasGeneratedHair = false;
 
-        }   
+            }
+            
+        }
       
     }
 
