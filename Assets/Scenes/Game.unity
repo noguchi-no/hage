@@ -152,16 +152,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 174fe0b8759bc4e66bd6b59400141757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hagePictures:
+  hagePrefabs:
   - {fileID: 4573870932444695858, guid: 3be85f382fbbf4a7a931122ebeb033db, type: 3}
   - {fileID: 7858586343574370997, guid: db559f392da064d228b3277d3d0a9ae9, type: 3}
   - {fileID: 7548240157379779648, guid: 98999d1df066b4011951b444b3de3b80, type: 3}
   - {fileID: 5027608160389281714, guid: e59878a8ad4d84b809eca869da6dc0ac, type: 3}
   - {fileID: 1499016845602253964, guid: 65785ead4a187457c991a0a7989b2919, type: 3}
   - {fileID: 4552135460924141385, guid: b52e40f0f0c97450382256a183a5aee8, type: 3}
-  count: 0
+  score: 0
   currentPicture: {fileID: 0}
+  scoreText: {fileID: 1651793556}
   hairManager: {fileID: 1024020515}
+  hasGeneratedHagePic: 0
+  hasGeneratedFirstPic: 0
 --- !u!4 &221263319
 Transform:
   m_ObjectHideFlags: 0
@@ -391,7 +394,6 @@ MonoBehaviour:
   hairPrefab: {fileID: 3569293560383005735, guid: 64b5c98ca13074abbac06c47fe5aded2, type: 3}
   hasGeneratedHair: 0
   countNumber: {fileID: 1651793556}
-  isClear: 0
   gameManager: {fileID: 221263318}
 --- !u!4 &1024020516
 Transform:
@@ -485,7 +487,7 @@ GameObject:
   - component: {fileID: 1651793559}
   - component: {fileID: 1651793558}
   m_Layer: 5
-  m_Name: CountNumber
+  m_Name: scoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -507,8 +509,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -405, y: 818}
-  m_SizeDelta: {x: 64.2059, y: 74.3491}
+  m_AnchoredPosition: {x: 0, y: 818}
+  m_SizeDelta: {x: 800, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1651793558
 MonoBehaviour:
@@ -543,7 +545,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10
+  m_Text: 0
 --- !u!222 &1651793559
 CanvasRenderer:
   m_ObjectHideFlags: 0
