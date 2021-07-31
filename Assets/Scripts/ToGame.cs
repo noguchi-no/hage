@@ -7,7 +7,13 @@ public class ToGame : MonoBehaviour
 {
     public void OnClick()
     {
-        SceneManager.LoadScene("Game");
+        if (GameManager.timeAttack){
+            SceneManager.LoadScene("TimeAttack");
+        }
+        else{
+            SceneManager.LoadScene("Game");
+        }
+        
     }
 
 //条件分岐でタイムアタックとノーマルモードに分けてロードシーンする

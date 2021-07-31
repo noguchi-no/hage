@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 //髪の毛を管理するスクリプト
 public class HairManager : MonoBehaviour
@@ -8,7 +9,7 @@ public class HairManager : MonoBehaviour
     public GameObject hairPrefab;
     public static List<GameObject> hairList = new List<GameObject>();
     public bool hasGeneratedHair;
-    public GameObject countNumber;
+    
     public GameManager gameManager;    
     
     // Update is called once per frame
@@ -35,12 +36,26 @@ public class HairManager : MonoBehaviour
            
         } else {
 
+            HairPick();
+
+        }
+
+        
+          
+    }
+    
+    void HairPick(){
+        
+            if (EventSystem.current.currentSelectedGameObject != null) {
+                return;
+            }
             //ボタンが押されたら
             if(Input.GetMouseButtonDown(0)) {
 
                 if(hairList.Count > 0) {
 
-                    gameManager.score++;
+                    //gameManager.
+                    GameManager.score++;
                     Destroy(hairList[hairList.Count - 1]);
 
                     //リストからも消す
@@ -63,8 +78,5 @@ public class HairManager : MonoBehaviour
                 }
 
             }
-
         }
-          
-    }
 }

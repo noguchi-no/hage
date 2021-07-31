@@ -2032,6 +2032,7 @@ GameObject:
   - component: {fileID: 1273441218}
   - component: {fileID: 1273441217}
   - component: {fileID: 1273441216}
+  - component: {fileID: 1273441215}
   m_Layer: 5
   m_Name: 'TimeAttackButton '
   m_TagString: Untagged
@@ -2059,6 +2060,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 176}
   m_SizeDelta: {x: 500, y: 113.4561}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1273441215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273441213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bbd352d245a94a7b8c7958a61960b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1273441216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2102,7 +2115,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1273441217}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1273441215}
+        m_TargetAssemblyTypeName: ToTimeAttack, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1273441217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2517,7 +2542,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1919695061}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 09623600f2c4143d994119be36cc1318, type: 3}

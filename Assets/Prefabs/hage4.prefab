@@ -96,4 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isClicked: 0
+  isFlicked: 0
+  isClear: 0
   hageHappy: {fileID: 21300000, guid: 5620cbfd9bd4d42f7bb2e1faaaba9244, type: 3}
+  hageSad: {fileID: 21300000, guid: 6c7a91d5491994e79b96c18b38d74f27, type: 3}
+  speed: 0

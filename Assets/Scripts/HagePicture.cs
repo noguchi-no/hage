@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 //はげの画像を操るスクリプト
 public class HagePicture : MonoBehaviour
@@ -10,11 +11,14 @@ public class HagePicture : MonoBehaviour
     public bool isClicked;
     public bool isFlicked; 
     public bool isClear;
+    public static bool isScored;
     public Sprite hageHappy;
+    public Sprite hageSad;
     public float speed;
     HairManager hairManager;
     SpriteRenderer hagePic;
     Vector2 startPos;
+    
 
     void Start()
     {
@@ -30,6 +34,9 @@ public class HagePicture : MonoBehaviour
     //フリック動作
     public void Flick() {
 
+        if (EventSystem.current.currentSelectedGameObject != null) {
+                return;
+        }
         if(Input.GetMouseButtonDown(0)) {
 
             startPos = Input.mousePosition;
@@ -49,10 +56,19 @@ public class HagePicture : MonoBehaviour
             } else {
                 
                 Debug.Log("gameover");
-                SceneManager.LoadScene("GameOver");
+                hageHappy = hageSad;
+                isScored = true;
+                Invoke("GameOver", 1);
+                
+
             }
             
         }
+        
+    }
+
+    void GameOver(){
+        SceneManager.LoadScene("GameOver");
         
     }
     
