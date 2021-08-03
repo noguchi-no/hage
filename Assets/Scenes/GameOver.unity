@@ -768,9 +768,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1784567992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80023bf2f30cf4fd68d9d99d87c71d4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 80d41ed522b5646f6a2e1079908c11ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 1330964822}
 --- !u!114 &1784567995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -816,7 +817,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1784567994}
-        m_TargetAssemblyTypeName: ToGame, Assembly-CSharp
+        m_TargetAssemblyTypeName: GameOverManager, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:

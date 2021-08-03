@@ -76,6 +76,10 @@ public class HagePicture : MonoBehaviour
     
     void Update() {
 
+        if (Mathf.Approximately(Time.timeScale, 0f)) {
+		return;
+	    }
+        
         transform.Translate(Time.deltaTime * speed, 0, 0);
 
         //xが-5.0以下なら

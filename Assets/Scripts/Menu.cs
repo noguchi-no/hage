@@ -1,24 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class Menu : MonoBehaviour
 {
-bool isOnPause;
 
-public void pause()
+public GameObject popUp;
+
+void Update()
 {
     
-    if(isOnPause){
+    if(popUp.activeSelf){
 
-        Time.timeScale = 1;
-        isOnPause = false;
+        Time.timeScale = 0f;
+        
     }
     else{
 
-        Time.timeScale = 0;
-        isOnPause = true;
+        Time.timeScale = 1f;
+        
     }
 }
     

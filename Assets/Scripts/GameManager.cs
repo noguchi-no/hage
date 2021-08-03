@@ -49,6 +49,10 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
+         if (Mathf.Approximately(Time.timeScale, 0f)) {
+		return;
+	    }
+
         scoreText.GetComponent<Text>().text = score.ToString();
 
         //ボタンを押したら

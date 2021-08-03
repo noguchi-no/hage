@@ -15,6 +15,9 @@ public class HairManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Mathf.Approximately(Time.timeScale, 0f)) {
+		return;
+	    }
         //髪の毛が生成されていないなら
         if (!hasGeneratedHair && gameManager.hasGeneratedHagePic) {
                     
