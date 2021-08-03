@@ -7,9 +7,9 @@ using UnityEngine.EventSystems;
 public class HairManager : MonoBehaviour
 {
     public GameObject hairPrefab;
-    public static List<GameObject> hairList = new List<GameObject>();
+    public List<GameObject> hairList = new List<GameObject>();
+    public List<bool> hair_deleting_list = new List<bool>();
     public bool hasGeneratedHair;
-    
     public GameManager gameManager;    
     
     // Update is called once per frame
@@ -27,6 +27,7 @@ public class HairManager : MonoBehaviour
                 GameObject hair = Instantiate(hairPrefab, new Vector3(hairPosition,3.0f,0f), Quaternion.identity);
 
                 hairList.Add(hair);
+                hair_deleting_list.Add(false);
 
                 hair.transform.SetParent(gameManager.currentPicture.transform);
 
@@ -36,47 +37,68 @@ public class HairManager : MonoBehaviour
            
         } else {
 
-            HairPick();
+            if(gameManager.currentPicture != null) {
+                
+                HairPick();
+
+                for(int i = 0; i < hairList.Count; i++) {
+                    
+                    if(hairList[i].transform.parent == null) {
+                        
+                        if(hairList[i].transform.position.y < 0) {
+
+                            Destroy(hairList[i]);
+
+                            //リストからも消す
+                            hairList.RemoveAt(i);
+
+                        } else {
+
+                            hairList[i].transform.Translate(0, Time.deltaTime * -5, 0);
+
+                        } 
+                    }
+
+                }
+
+            }
 
         }
-
-        
           
     }
     
     void HairPick(){
-        
-            if (EventSystem.current.currentSelectedGameObject != null) {
-                return;
-            }
-            //ボタンが押されたら
-            if(Input.GetMouseButtonDown(0)) {
+            
+        //他のボタンが押された時、動作させないための処理
+        if (EventSystem.current.currentSelectedGameObject != null) return;
 
-                if(hairList.Count > 0) {
+        //ボタンが押されたら
+        if(Input.GetMouseButtonDown(0)) {
 
-                    //gameManager.
-                    GameManager.score++;
-                    Destroy(hairList[hairList.Count - 1]);
+            if(gameManager.currentPicture.transform.childCount > 0) {
 
-                    //リストからも消す
-                    hairList.RemoveAt(hairList.Count - 1);
+                GameManager.score++;
 
-                }
+                hairList[gameManager.currentPicture.transform.childCount - 1].transform.parent = null;
 
             }
 
-            if(hairList.Count == 0) {
-
-                if(gameManager.currentPicture != null) {
-
-                    if(Input.GetMouseButtonUp(0)) {
-
-                        gameManager.currentPicture.GetComponent<HagePicture>().isClear = true;
-
-                    }
-                                    
-                }
-
-            }
         }
+
+        //if(hairList.Count == 0) {
+        if(gameManager.currentPicture.transform.childCount == 0) {            
+
+            if(gameManager.currentPicture != null) {
+                
+                //フリック呼び出しのタイミングずらし用
+                if(Input.GetMouseButtonUp(0)) {
+
+                    gameManager.currentPicture.GetComponent<HagePicture>().isClear = true;
+
+                }
+                                
+            }
+
+        }
+    }
 }

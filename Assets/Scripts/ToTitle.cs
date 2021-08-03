@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class ToTitle : MonoBehaviour
 {
-    public void OnClick()
-    {
+    public void OnClick() {
+
         SceneManager.LoadScene("Title");
+    
     }
 }
