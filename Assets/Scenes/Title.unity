@@ -2529,7 +2529,7 @@ GameObject:
   - component: {fileID: 1919695062}
   - component: {fileID: 1919695064}
   m_Layer: 0
-  m_Name: BgmManager
+  m_Name: bgm Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2542,7 +2542,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1919695061}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 09623600f2c4143d994119be36cc1318, type: 3}

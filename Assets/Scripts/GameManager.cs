@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 //ゲームの進行管理をするスクリプト
 public class GameManager : MonoBehaviour {
+
     public List<GameObject> hagePrefabs = new List<GameObject>();
     static public int score;
     public int highScore = 0;
@@ -16,7 +17,6 @@ public class GameManager : MonoBehaviour {
     public HairManager hairManager;
     public bool hasGeneratedHagePic;
     public bool hasGeneratedFirstPic;
-
     public float timeLimit = 10.0f;
     public GameObject limit;
     public int highScoreOnTimeAttack = 0;
@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour {
     string key2 = "HIGHSCOREONTIME";
     public static bool timeAttack;
 
-    void Start()
-    {
+    void Start() {
         
+        score = 0;
 
         if(SceneManager.GetActiveScene().name == "TimeAttack") {
 
@@ -34,9 +34,8 @@ public class GameManager : MonoBehaviour {
             highScoreTextOnTimeAttack.text = "ベスト：" + highScoreOnTimeAttack.ToString(); 
             
             timeAttack = true;
-        } 
-
-        else{
+        
+        } else {
             
             highScore = PlayerPrefs.GetInt(key, 0);
             highScoreText.text = "ベスト：" + highScore.ToString(); 
@@ -48,8 +47,7 @@ public class GameManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
 
         scoreText.GetComponent<Text>().text = score.ToString();
 
@@ -103,8 +101,8 @@ public class GameManager : MonoBehaviour {
                 PlayerPrefs.SetInt(key, highScore);
                 PlayerPrefs.Save();
 
-                
             }
+
             HagePicture.isScored = false;
         }
 
@@ -112,11 +110,10 @@ public class GameManager : MonoBehaviour {
 
             if(timeLimit > 0) {
             
-            timeLimit -= Time.deltaTime; 
-            limit.GetComponent<Text>().text = "残り時間" + timeLimit.ToString("N1");
+                timeLimit -= Time.deltaTime; 
+                limit.GetComponent<Text>().text = "残り時間" + timeLimit.ToString("N1");
         
-            } 
-            else {
+            }  else {
 
                 SceneManager.LoadScene("GameOver");
 

@@ -5,16 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class ToGame : MonoBehaviour
 {
-    public void OnClick()
-    {
-        if (GameManager.timeAttack){
-            SceneManager.LoadScene("TimeAttack");
-        }
-        else{
-            SceneManager.LoadScene("Game");
-        }
-        
+    public void OnClick() {
+
+        SceneManager.LoadScene("Game");
+
     }
 
-//条件分岐でタイムアタックとノーマルモードに分けてロードシーンする
 }

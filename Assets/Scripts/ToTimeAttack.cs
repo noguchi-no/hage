@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class ToTimeAttack : MonoBehaviour
 {
-   public void OnClick()
-    {
+    public void OnClick() {
+    
         SceneManager.LoadScene("TimeAttack");
+    
     }
 }

@@ -18,10 +18,8 @@ public class HagePicture : MonoBehaviour
     HairManager hairManager;
     SpriteRenderer hagePic;
     Vector2 startPos;
-    
 
-    void Start()
-    {
+    void Start() {
 
         hairManager = GameObject.Find("HairManager").GetComponent<HairManager>();
 
@@ -34,9 +32,9 @@ public class HagePicture : MonoBehaviour
     //フリック動作
     public void Flick() {
 
-        if (EventSystem.current.currentSelectedGameObject != null) {
-                return;
-        }
+        //他のボタンが押された時、動作させないための処理
+        if(EventSystem.current.currentSelectedGameObject != null) return;
+
         if(Input.GetMouseButtonDown(0)) {
 
             startPos = Input.mousePosition;
@@ -47,33 +45,36 @@ public class HagePicture : MonoBehaviour
             Vector2 endPos = Input.mousePosition;
             float swipeLength = endPos.x - startPos.x;
 
-
             if(-30 > swipeLength) {
 
                 speed = -18.0f;
                 isFlicked = true;
             
-            } else {
+            } else if(swipeLength == 0) {
                 
                 Debug.Log("gameover");
+                
+                //本来ならこう書くところ
+                //hagePic.sprite = hageSad;
                 hageHappy = hageSad;
+                
                 isScored = true;
                 Invoke("GameOver", 1);
-                
-
+            
             }
+            
             
         }
         
     }
 
     void GameOver(){
+
         SceneManager.LoadScene("GameOver");
-        
+
     }
     
-    void Update()
-    {
+    void Update() {
 
         transform.Translate(Time.deltaTime * speed, 0, 0);
 

@@ -8,9 +8,10 @@ public class BgmManager : MonoBehaviour
     public Slider slider;
     AudioSource audioSource;
 
-    void Start()
-    {
+    void Start() {
+
         audioSource = GetComponent<AudioSource>();
         slider.onValueChanged.AddListener(value => this.audioSource.volume = value);
+        
     }
 }
