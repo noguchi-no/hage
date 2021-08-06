@@ -233,9 +233,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hairPrefab: {fileID: 3569293560383005735, guid: 64b5c98ca13074abbac06c47fe5aded2, type: 3}
   hairList: []
-  hair_deleting_list: 
   hasGeneratedHair: 0
   gameManager: {fileID: 1577644535}
+  hairCount: 0
 --- !u!4 &578490181
 Transform:
   m_ObjectHideFlags: 0
@@ -1160,7 +1160,7 @@ GameObject:
   - component: {fileID: 1557030184}
   - component: {fileID: 1557030183}
   m_Layer: 5
-  m_Name: Canvas (1)
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1290,13 +1290,15 @@ MonoBehaviour:
   currentPicture: {fileID: 0}
   scoreText: {fileID: 1931011103}
   highScoreText: {fileID: 0}
-  hairManager: {fileID: 578490180}
   hasGeneratedHagePic: 0
   hasGeneratedFirstPic: 0
-  timeLimit: 7
+  timeLimit: 30
   limit: {fileID: 67645732}
   highScoreOnTimeAttack: 0
   highScoreTextOnTimeAttack: {fileID: 1424872157}
+  countForLimit: 0
+  currentTime: 0
+  gameOverTimeLimit: 5
 --- !u!4 &1577644536
 Transform:
   m_ObjectHideFlags: 0

@@ -5,27 +5,19 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 //髪の毛を管理するスクリプト
-public class HairManager : MonoBehaviour
-{
+public class HairManager : MonoBehaviour {
     public GameObject hairPrefab;
     public List<GameObject> hairList = new List<GameObject>();
-    //public List<bool> hair_deleting_list = new List<bool>();
+    public List<float> hairPosxList = new List<float>();
     public bool hasGeneratedHair;
     public GameManager gameManager;
 
     public int hairCount;    
-   
-    
-    void Start()
-    {
-        
-    }
     void Update()
     {
         //時間が停止してたらリターンする
-        if (Mathf.Approximately(Time.timeScale, 0f)) {
-		return;
-	    }
+        if (Mathf.Approximately(Time.timeScale, 0f)) return;
+	    
         //髪の毛が生成されていないなら
         if (!hasGeneratedHair && gameManager.hasGeneratedHagePic) {
             
@@ -34,12 +26,14 @@ public class HairManager : MonoBehaviour
                 
                 hairCount = (int)Random.Range(1, 5.99f);
 
-            }
-            else{
-                hairCount = (int)Random.Range(0, 5.99f);
-            }
-            
+            } else {
 
+                hairCount = (int)Random.Range(0, 5.99f);
+            
+            }
+
+            Debug.Log(hairCount);
+            
             for(int i = 0; i < hairCount; i++) {
 
                 float hairPosition = Random.Range(6.0f, 8.0f);
@@ -47,17 +41,14 @@ public class HairManager : MonoBehaviour
                 GameObject hair = Instantiate(hairPrefab, new Vector3(hairPosition,3.0f,0f), Quaternion.identity);
 
                 hairList.Add(hair);
-                //hair_deleting_list.Add(false);
+                hairPosxList.Add(0);
 
                 hair.transform.SetParent(gameManager.currentPicture.transform);
 
             } 
 
             hasGeneratedHair = true;   
-
-           
-            
-           
+                       
         } else {
 
             if(gameManager.currentPicture != null) {
@@ -74,11 +65,15 @@ public class HairManager : MonoBehaviour
 
                             //リストからも消す
                             hairList.RemoveAt(i);
+                            hairPosxList.RemoveAt(i);
 
                         } else {
 
-                            hairList[i].transform.Translate(0, Time.deltaTime * -5, 0);
-
+                            hairList[i].transform.position = new Vector3(hairPosxList[i] - (Mathf.Sin(Time.time * 5)),
+                                                                         Time.deltaTime * -5 + hairList[i].transform.position.y, 
+                                                                         0);
+                            
+    
                         } 
                     }
 
@@ -102,13 +97,14 @@ public class HairManager : MonoBehaviour
                 
                 GameManager.score++;
 
+                hairPosxList[gameManager.currentPicture.transform.childCount - 1] = hairList[gameManager.currentPicture.transform.childCount - 1].transform.position.x;
+
                 hairList[gameManager.currentPicture.transform.childCount - 1].transform.parent = null;
 
             }
 
         }
 
-        //if(hairList.Count == 0) {
         if(gameManager.currentPicture.transform.childCount == 0) {            
 
             if(gameManager.currentPicture != null) {
@@ -117,7 +113,7 @@ public class HairManager : MonoBehaviour
                 if(Input.GetMouseButtonUp(0)) {
                     
                     gameManager.currentPicture.GetComponent<HagePicture>().isClear = true;
-                    //Debug.Log("Yes");
+
                 }
                                 
             }

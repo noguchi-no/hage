@@ -12,7 +12,7 @@ public class HagePicture : MonoBehaviour
     public bool isFlicked; 
     public bool isClear;
     public static bool isScored;
-    bool finish;
+    bool isSad;
     public Sprite hageHappy;
     public Sprite hageSad;
     public float speed;
@@ -41,7 +41,8 @@ public class HagePicture : MonoBehaviour
 
             if(Input.GetMouseButtonDown(0)) {
 
-            startPos = Input.mousePosition;
+                startPos = Input.mousePosition;
+            
             }
         
             if(Input.GetMouseButtonUp(0)) {
@@ -51,18 +52,19 @@ public class HagePicture : MonoBehaviour
 
                 if(-30 > swipeLength) {
 
-                    if(!finish){
+                    if(!isSad){
                         speed = -18.0f;
                         isFlicked = true;
                     }
                 
                 } else if(swipeLength == 0) {
-                    
                 
                     hageHappy = hageSad;
                     
-                    finish = true;
-                    isScored = true;
+                    isSad = true;
+
+                    gameManager.SaveHighScore(GameManager.score);
+
                     Invoke("GameOver", 1);
                 
                 }
@@ -80,9 +82,7 @@ public class HagePicture : MonoBehaviour
     
     void Update() {
 
-        if (Mathf.Approximately(Time.timeScale, 0f)) {
-		return;
-	    }
+        if (Mathf.Approximately(Time.timeScale, 0f)) return;
 
         transform.Translate(Time.deltaTime * speed, 0, 0);
 
@@ -109,10 +109,8 @@ public class HagePicture : MonoBehaviour
             //最初から毛が0ほんのやつが流れてきた時
             if (hairManager.hairCount == 0){
                 
-                    Flick();
-                    gameManager.Flicked();
-                
-                
+                isClear = true;
+                //Flick();
                 
             }
             
