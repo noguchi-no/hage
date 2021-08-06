@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 //ゲームの進行管理をするスクリプト
 public class GameManager : MonoBehaviour {
@@ -25,25 +26,30 @@ public class GameManager : MonoBehaviour {
     public static bool timeAttack;
 
     public int countForLimit;
-     public float currentTime;
+    public float currentTime;
     public float gameOverTimeLimit = 5.0f;
     
+    [System.Serializable]
+    public class HighScoreData {
+        public int highScore;
+        public int highScoreOnTimeAttack;
+    }
+    HighScoreData highScoreData = new HighScoreData();
 
     void Start() {
         
         score = 0;
         currentTime = gameOverTimeLimit;
+        LoadHighScore();
 
         if(SceneManager.GetActiveScene().name == "TimeAttack") {
 
-            highScoreOnTimeAttack = PlayerPrefs.GetInt(key2, 0);
             highScoreTextOnTimeAttack.text = "ベスト：" + highScoreOnTimeAttack.ToString(); 
             
             timeAttack = true;
         
         } else {
             
-            highScore = PlayerPrefs.GetInt(key, 0);
             highScoreText.text = "ベスト：" + highScore.ToString(); 
 
             timeAttack = false;
@@ -56,7 +62,7 @@ public class GameManager : MonoBehaviour {
     void Update() {
 
         if(Mathf.Approximately(Time.timeScale, 0f)){
-		return;
+		    return;
 	    }
 
         scoreText.GetComponent<Text>().text = score.ToString();
@@ -78,7 +84,6 @@ public class GameManager : MonoBehaviour {
 
         } else {
 
-
             if(currentPicture.GetComponent<HagePicture>().isFlicked) {
 
                 int number = Random.Range(0, hagePrefabs.Count);    
@@ -86,8 +91,7 @@ public class GameManager : MonoBehaviour {
                 currentPicture = Instantiate(hagePrefabs[number], new Vector3(7,0,0), Quaternion.identity);
 
                 hasGeneratedHagePic = true;
-                
-                
+                                
             }
 
             if(SceneManager.GetActiveScene().name == "Game") {
@@ -98,46 +102,39 @@ public class GameManager : MonoBehaviour {
 
                 } else {
 
+                    SaveHighScore(score);
+
                     SceneManager.LoadScene("GameOver");
 
                 }
 
-                if(countForLimit >= 3){
+                if(countForLimit >= 5){
 
                     gameOverTimeLimit = 3.0f;
+                
+                } else if (countForLimit >= 3){
+
+                    gameOverTimeLimit = 5.0f;
                 }
 
-                else if (countForLimit >= 5){
-
-                    gameOverTimeLimit = 2.0f;
-                }
-
-                }       
+            }       
 
         }
         
-            if(currentPicture != null && currentPicture.GetComponent<HagePicture>().isClear) {
+        if(currentPicture != null && currentPicture.GetComponent<HagePicture>().isClear) {
             
             currentPicture.GetComponent<HagePicture>().Flick();
             
-            Flicked();
+            if(currentPicture.GetComponent<HagePicture>().isFlicked) {
+                
+                hasGeneratedHagePic = false;
+                hairManager.hasGeneratedHair = false;
             
+                currentTime = gameOverTimeLimit;
+                countForLimit++;
+
+            }            
         }
-
-        if (HagePicture.isScored){
-            
-            if (score > highScore){
-
-                highScore = score;
-                PlayerPrefs.SetInt(key, highScore);
-                PlayerPrefs.Save();
-
-            }
-
-            HagePicture.isScored = false;
-        }
-
-        
 
         //タイムアタックシーン
         if(SceneManager.GetActiveScene().name == "TimeAttack") {
@@ -149,35 +146,57 @@ public class GameManager : MonoBehaviour {
         
             }  else {
 
+                SaveHighScore(score);
                 SceneManager.LoadScene("GameOver");
-
-                if (score > highScoreOnTimeAttack){
-
-                    highScoreOnTimeAttack = score;
-                    PlayerPrefs.SetInt(key2, highScoreOnTimeAttack);
-                    PlayerPrefs.Save();
-
-                }
 
             }
         } 
       
     }
 
-    //0本で流れてくるやつのためにつくった関数でガンス
-    public void Flicked()
-    {
-        if(currentPicture.GetComponent<HagePicture>().isFlicked) {
-        
-            hasGeneratedHagePic = false;
-            hairManager.hasGeneratedHair = false;
-            
-            currentTime = gameOverTimeLimit;
-            countForLimit++;
+    //jsonに書きこみ
+    public void SaveHighScore(int _score) {
+
+        if(SceneManager.GetActiveScene().name == "TimeAttack") {
+
+            if (_score <= highScoreOnTimeAttack) return;
+
+            highScoreData.highScoreOnTimeAttack = _score;
+
+        } else {
+
+            if(_score <= highScore) return;
+
+            highScoreData.highScore = _score;
 
         }
+
+        StreamWriter writer;
+
+        string jsonstr = JsonUtility.ToJson(highScoreData);
+
+        writer = new StreamWriter(Application.dataPath + "/savedata.json", false);
+        writer.Write(jsonstr);
+        writer.Flush();
+        writer.Close();
+
     }
 
-    
+    void LoadHighScore() {
+
+        string datastr = "";
+
+        StreamReader reader;
+
+        reader = new StreamReader(Application.dataPath + "/savedata.json", false);
+        datastr = reader.ReadToEnd();
+        reader.Close();
+
+        highScoreData = JsonUtility.FromJson<HighScoreData>(datastr);
+
+        highScore = highScoreData.highScore;
+        highScoreOnTimeAttack = highScoreData.highScoreOnTimeAttack;
+
+    }
 
 }
