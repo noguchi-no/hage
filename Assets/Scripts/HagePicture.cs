@@ -12,12 +12,14 @@ public class HagePicture : MonoBehaviour
     public bool isFlicked; 
     public bool isClear;
     public static bool isScored;
+    bool finish;
     public Sprite hageHappy;
     public Sprite hageSad;
     public float speed;
     HairManager hairManager;
     SpriteRenderer hagePic;
     Vector2 startPos;
+    GameManager gameManager;
 
     void Start() {
 
@@ -26,6 +28,8 @@ public class HagePicture : MonoBehaviour
         hagePic = this.GetComponent<SpriteRenderer>();
 
         speed = -18.0f;
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         
     }
 
@@ -35,37 +39,37 @@ public class HagePicture : MonoBehaviour
         //他のボタンが押された時、動作させないための処理
         if(EventSystem.current.currentSelectedGameObject != null) return;
 
-        if(Input.GetMouseButtonDown(0)) {
+            if(Input.GetMouseButtonDown(0)) {
 
             startPos = Input.mousePosition;
-        }
-
-        if(Input.GetMouseButtonUp(0)) {
-
-            Vector2 endPos = Input.mousePosition;
-            float swipeLength = endPos.x - startPos.x;
-
-            if(-30 > swipeLength) {
-
-                speed = -18.0f;
-                isFlicked = true;
-            
-            } else if(swipeLength == 0) {
-                
-                Debug.Log("gameover");
-                
-                //本来ならこう書くところ
-                //hagePic.sprite = hageSad;
-                hageHappy = hageSad;
-                
-                isScored = true;
-                Invoke("GameOver", 1);
-            
             }
-            
-            
-        }
         
+            if(Input.GetMouseButtonUp(0)) {
+                
+                Vector2 endPos = Input.mousePosition;
+                float swipeLength = endPos.x - startPos.x;
+
+                if(-30 > swipeLength) {
+
+                    if(!finish){
+                        speed = -18.0f;
+                        isFlicked = true;
+                    }
+                
+                } else if(swipeLength == 0) {
+                    
+                
+                    hageHappy = hageSad;
+                    
+                    finish = true;
+                    isScored = true;
+                    Invoke("GameOver", 1);
+                
+                }
+            
+            
+            }   
+
     }
 
     void GameOver(){
@@ -79,7 +83,7 @@ public class HagePicture : MonoBehaviour
         if (Mathf.Approximately(Time.timeScale, 0f)) {
 		return;
 	    }
-        
+
         transform.Translate(Time.deltaTime * speed, 0, 0);
 
         //xが-5.0以下なら
@@ -100,6 +104,16 @@ public class HagePicture : MonoBehaviour
 
                 hagePic.sprite = hageHappy;
                                                 
+            }
+            
+            //最初から毛が0ほんのやつが流れてきた時
+            if (hairManager.hairCount == 0){
+                
+                    Flick();
+                    gameManager.Flicked();
+                
+                
+                
             }
             
         } 

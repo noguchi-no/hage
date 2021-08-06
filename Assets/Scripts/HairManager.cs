@@ -2,27 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 //髪の毛を管理するスクリプト
 public class HairManager : MonoBehaviour
 {
     public GameObject hairPrefab;
     public List<GameObject> hairList = new List<GameObject>();
-    public List<bool> hair_deleting_list = new List<bool>();
+    //public List<bool> hair_deleting_list = new List<bool>();
     public bool hasGeneratedHair;
-    public GameManager gameManager;    
+    public GameManager gameManager;
+
+    public int hairCount;    
+   
     
-    // Update is called once per frame
+    void Start()
+    {
+        
+    }
     void Update()
     {
+        //時間が停止してたらリターンする
         if (Mathf.Approximately(Time.timeScale, 0f)) {
 		return;
 	    }
         //髪の毛が生成されていないなら
         if (!hasGeneratedHair && gameManager.hasGeneratedHagePic) {
-                    
-            int hairCount = (int)Random.Range(1, 4.99f);
-        
+            
+            //ゲームスタートで最初に流れてくるのが0本だとエラー起きるから最初は1本以上にした
+            if(GameManager.score == 0){
+                
+                hairCount = (int)Random.Range(1, 5.99f);
+
+            }
+            else{
+                hairCount = (int)Random.Range(0, 5.99f);
+            }
+            
+
             for(int i = 0; i < hairCount; i++) {
 
                 float hairPosition = Random.Range(6.0f, 8.0f);
@@ -30,13 +47,16 @@ public class HairManager : MonoBehaviour
                 GameObject hair = Instantiate(hairPrefab, new Vector3(hairPosition,3.0f,0f), Quaternion.identity);
 
                 hairList.Add(hair);
-                hair_deleting_list.Add(false);
+                //hair_deleting_list.Add(false);
 
                 hair.transform.SetParent(gameManager.currentPicture.transform);
 
             } 
 
             hasGeneratedHair = true;   
+
+           
+            
            
         } else {
 
@@ -79,7 +99,7 @@ public class HairManager : MonoBehaviour
         if(Input.GetMouseButtonDown(0)) {
 
             if(gameManager.currentPicture.transform.childCount > 0) {
-
+                
                 GameManager.score++;
 
                 hairList[gameManager.currentPicture.transform.childCount - 1].transform.parent = null;
@@ -95,9 +115,9 @@ public class HairManager : MonoBehaviour
                 
                 //フリック呼び出しのタイミングずらし用
                 if(Input.GetMouseButtonUp(0)) {
-
+                    
                     gameManager.currentPicture.GetComponent<HagePicture>().isClear = true;
-
+                    //Debug.Log("Yes");
                 }
                                 
             }
