@@ -95,6 +95,8 @@ public class HairManager : MonoBehaviour {
 
             if(gameManager.currentPicture.transform.childCount > 0) {
                 
+                gameManager.sm.TapSound();
+
                 GameManager.score++;
 
                 hairPosxList[gameManager.currentPicture.transform.childCount - 1] = hairList[gameManager.currentPicture.transform.childCount - 1].transform.position.x;

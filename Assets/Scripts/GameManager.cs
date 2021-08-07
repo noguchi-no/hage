@@ -9,12 +9,13 @@ using System.IO;
 public class GameManager : MonoBehaviour {
 
     public List<GameObject> hagePrefabs = new List<GameObject>();
+    public GameObject hageRare;
     static public int score;
     public int highScore = 0;
     public GameObject currentPicture;
     public GameObject scoreText;
     public Text highScoreText;
-    string key = "HIGHSCORE";
+    //string key = "HIGHSCORE";
     HairManager hairManager;
     public bool hasGeneratedHagePic;
     public bool hasGeneratedFirstPic;
@@ -22,12 +23,12 @@ public class GameManager : MonoBehaviour {
     public GameObject limit;
     public int highScoreOnTimeAttack = 0;
     public Text highScoreTextOnTimeAttack;
-    string key2 = "HIGHSCOREONTIME";
+    //string key2 = "HIGHSCOREONTIME";
     public static bool timeAttack;
-
+    public SoundManager sm;
     public int countForLimit;
     public float currentTime;
-    public float gameOverTimeLimit = 5.0f;
+    public float gameOverTimeLimit = 8.0f;
     
     [System.Serializable]
     public class HighScoreData {
@@ -86,11 +87,26 @@ public class GameManager : MonoBehaviour {
 
             if(currentPicture.GetComponent<HagePicture>().isFlicked) {
 
-                int number = Random.Range(0, hagePrefabs.Count);    
+                int probab = Random.Range(0, 101);
 
-                currentPicture = Instantiate(hagePrefabs[number], new Vector3(7,0,0), Quaternion.identity);
+                if(probab <= 90){
 
-                hasGeneratedHagePic = true;
+                    int number = Random.Range(0, hagePrefabs.Count);    
+
+                    currentPicture = Instantiate(hagePrefabs[number], new Vector3(7,0,0), Quaternion.identity);
+
+                    hasGeneratedHagePic = true;
+
+                }
+                
+                else{
+
+                    currentPicture = Instantiate(hageRare, new Vector3(7,0,0), Quaternion.identity);
+
+                    hasGeneratedHagePic = true;
+                }
+                
+
                                 
             }
 
@@ -104,7 +120,9 @@ public class GameManager : MonoBehaviour {
 
                     SaveHighScore(score);
 
-                    SceneManager.LoadScene("GameOver");
+                    sm.SadSound();
+
+                    Invoke("GameOver", 1);
 
                 }
 
@@ -125,6 +143,8 @@ public class GameManager : MonoBehaviour {
             
             currentPicture.GetComponent<HagePicture>().Flick();
             
+            
+
             if(currentPicture.GetComponent<HagePicture>().isFlicked) {
                 
                 hasGeneratedHagePic = false;
@@ -196,6 +216,12 @@ public class GameManager : MonoBehaviour {
 
         highScore = highScoreData.highScore;
         highScoreOnTimeAttack = highScoreData.highScoreOnTimeAttack;
+
+    }
+
+    void GameOver(){
+
+        SceneManager.LoadScene("GameOver");
 
     }
 

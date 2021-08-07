@@ -13,6 +13,7 @@ public class HagePicture : MonoBehaviour
     public bool isClear;
     public static bool isScored;
     bool isSad;
+    bool isHappySounded;
     public Sprite hageHappy;
     public Sprite hageSad;
     public float speed;
@@ -54,11 +55,13 @@ public class HagePicture : MonoBehaviour
 
                     if(!isSad){
                         speed = -18.0f;
+                        gameManager.sm.FlickSound();
                         isFlicked = true;
                     }
                 
                 } else if(swipeLength == 0) {
-                
+                    
+                    gameManager.sm.SadSound();
                     hageHappy = hageSad;
                     
                     isSad = true;
@@ -102,7 +105,32 @@ public class HagePicture : MonoBehaviour
 
             } else {
 
-                hagePic.sprite = hageHappy;
+                if(hairManager.hairCount != 0){
+
+                    hagePic.sprite = hageHappy;
+                    
+                    if(!isHappySounded){
+
+                        gameManager.sm.HappySound();
+                        isHappySounded = true;
+                    }
+
+                }
+                else{
+                    
+                    if(isFlicked){
+
+                        hagePic.sprite = hageHappy;
+
+                        if(!isHappySounded){
+
+                            gameManager.sm.HappySound();
+                            isHappySounded = true;
+                        }
+                        
+                    }
+                }
+                
                                                 
             }
             
