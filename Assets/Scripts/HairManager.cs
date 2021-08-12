@@ -11,7 +11,7 @@ public class HairManager : MonoBehaviour {
     public List<float> hairPosxList = new List<float>();
     public bool hasGeneratedHair;
     public GameManager gameManager;
-
+    public GameObject canvas;
     public int hairCount;    
     void Update()
     {
@@ -31,19 +31,17 @@ public class HairManager : MonoBehaviour {
                 hairCount = (int)Random.Range(0, 5.99f);
             
             }
-
-            Debug.Log(hairCount);
             
             for(int i = 0; i < hairCount; i++) {
 
-                float hairPosition = Random.Range(6.0f, 8.0f);
-
-                GameObject hair = Instantiate(hairPrefab, new Vector3(hairPosition,3.0f,0f), Quaternion.identity);
+                GameObject hair = Instantiate(hairPrefab);
 
                 hairList.Add(hair);
                 hairPosxList.Add(0);
 
-                hair.transform.SetParent(gameManager.currentPicture.transform);
+                hair.transform.SetParent(gameManager.currentPicture.transform, false);
+                hair.GetComponent<RectTransform>().anchoredPosition = new Vector2(Random.Range(-250, 250), Random.Range(300, 400));
+
 
             } 
 
@@ -57,9 +55,9 @@ public class HairManager : MonoBehaviour {
 
                 for(int i = 0; i < hairList.Count; i++) {
                     
-                    if(hairList[i].transform.parent == null) {
+                    if(hairList[i].transform.parent == canvas.transform) {
                         
-                        if(hairList[i].transform.position.y < 0) {
+                        if(hairList[i].GetComponent<RectTransform>().anchoredPosition.y < 0) {
 
                             Destroy(hairList[i]);
 
@@ -69,11 +67,10 @@ public class HairManager : MonoBehaviour {
 
                         } else {
 
-                            hairList[i].transform.position = new Vector3(hairPosxList[i] - (Mathf.Sin(Time.time * 5)),
-                                                                         Time.deltaTime * -5 + hairList[i].transform.position.y, 
-                                                                         0);
-                            
-    
+                            hairList[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(
+                                hairPosxList[i] + Mathf.Sin(Time.time * 10)*50, 
+                                hairList[i].GetComponent<RectTransform>().anchoredPosition.y + Time.deltaTime * -800);
+                                
                         } 
                     }
 
@@ -99,9 +96,9 @@ public class HairManager : MonoBehaviour {
 
                 GameManager.score++;
 
-                hairPosxList[gameManager.currentPicture.transform.childCount - 1] = hairList[gameManager.currentPicture.transform.childCount - 1].transform.position.x;
+                hairPosxList[gameManager.currentPicture.transform.childCount - 1] = hairList[gameManager.currentPicture.transform.childCount - 1].GetComponent<RectTransform>().anchoredPosition.x;
 
-                hairList[gameManager.currentPicture.transform.childCount - 1].transform.parent = null;
+                hairList[gameManager.currentPicture.transform.childCount - 1].transform.SetParent(canvas.transform, false);
 
             }
 

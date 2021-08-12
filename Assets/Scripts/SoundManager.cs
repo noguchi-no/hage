@@ -8,10 +8,13 @@ public class SoundManager : MonoBehaviour
     public AudioClip tapSE;
     public AudioClip sadSE;
     public AudioClip happySE;
-    AudioSource aud;
+    public AudioClip startSE;
+    public AudioClip gameoverSE;
+    public AudioSource aud;
+    
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+
         aud = this.GetComponent<AudioSource>();
     }
 
@@ -19,10 +22,12 @@ public class SoundManager : MonoBehaviour
     {
         aud.PlayOneShot(flickSE);
     }
+
     public void TapSound()
     {
         aud.PlayOneShot(tapSE);
     }
+
     public void HappySound()
     {
         aud.PlayOneShot(happySE, 0.7f);
@@ -31,7 +36,14 @@ public class SoundManager : MonoBehaviour
     {
         aud.PlayOneShot(sadSE);
     }
-   
+
+    public void playStartSound() {
+        aud.PlayOneShot(startSE);
+    }
+
+    public void playGameoverSound() {
+        aud.PlayOneShot(gameoverSE);
+    }
 
     
 }
