@@ -6,31 +6,30 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
 //はげの画像を操るスクリプト
-public class HagePicture : MonoBehaviour
-{
+public class HagePicture : MonoBehaviour {
     public bool isClicked;
     public bool isFlicked; 
     public bool isClear;
     public static bool isScored;
     bool isSad;
-    bool isHappySounded;
+    bool isHappy;
     public Sprite hageHappy;
     public Sprite hageSad;
-    public float speed;
     HairManager hairManager;
     SpriteRenderer hagePic;
     Vector2 startPos;
     GameManager gameManager;
-
+    float speed = -3600.0f;
+    int hagePicNums;
     void Start() {
 
         hairManager = GameObject.Find("HairManager").GetComponent<HairManager>();
 
         hagePic = this.GetComponent<SpriteRenderer>();
 
-        speed = -18.0f;
-
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        hagePicNums = gameManager.hagePicNums;
         
     }
 
@@ -54,7 +53,7 @@ public class HagePicture : MonoBehaviour
                 if(-30 > swipeLength) {
 
                     if(!isSad){
-                        speed = -18.0f;
+                        speed = -3600.0f;
                         gameManager.sm.FlickSound();
                         isFlicked = true;
                     }
@@ -62,8 +61,11 @@ public class HagePicture : MonoBehaviour
                 } else if(swipeLength == 0) {
                     
                     gameManager.sm.SadSound();
-                    hageHappy = hageSad;
                     
+                    this.GetComponent<Image>().sprite = gameManager.sadHagePics[hagePicNums];
+                    
+                    Debug.Log(this.GetComponent<Image>().sprite);
+
                     isSad = true;
 
                     gameManager.SaveHighScore(GameManager.score);
@@ -87,16 +89,13 @@ public class HagePicture : MonoBehaviour
 
         if (Mathf.Approximately(Time.timeScale, 0f)) return;
 
-        transform.Translate(Time.deltaTime * speed, 0, 0);
+        this.GetComponent<RectTransform>().anchoredPosition += new Vector2(Time.deltaTime * speed, 0);
 
-        //xが-5.0以下なら
-        if(transform.position.x <= -5.0f) {
+        if(this.GetComponent<RectTransform>().anchoredPosition.x <= -800) {
             
-            //自身を破壊する
             Destroy(this.gameObject);
 
-        //xが0.18以下なら
-        } else if (transform.position.x <= 0.18f) {
+        } else if (this.GetComponent<RectTransform>().anchoredPosition.x <= 0) {
 
             //毛が消えていないなら
             if(!isClear) {
@@ -105,27 +104,25 @@ public class HagePicture : MonoBehaviour
 
             } else {
 
+                //初期がはげじゃなかったら
                 if(hairManager.hairCount != 0){
-
-                    hagePic.sprite = hageHappy;
                     
-                    if(!isHappySounded){
-
+                    if(!isHappy){
+                        
+                        this.GetComponent<Image>().sprite = gameManager.happyHagePics[hagePicNums];
                         gameManager.sm.HappySound();
-                        isHappySounded = true;
+                        isHappy = true;
                     }
 
-                }
-                else{
+                } else {
                     
                     if(isFlicked){
 
-                        hagePic.sprite = hageHappy;
-
-                        if(!isHappySounded){
-
+                        if(!isHappy){
+                            
+                            this.GetComponent<Image>().sprite = gameManager.happyHagePics[hagePicNums];
                             gameManager.sm.HappySound();
-                            isHappySounded = true;
+                            isHappy = true;
                         }
                         
                     }
@@ -135,12 +132,7 @@ public class HagePicture : MonoBehaviour
             }
             
             //最初から毛が0ほんのやつが流れてきた時
-            if (hairManager.hairCount == 0){
-                
-                isClear = true;
-                //Flick();
-                
-            }
+            if (hairManager.hairCount == 0) isClear = true;
             
         } 
 

@@ -7,28 +7,40 @@ using System.IO;
 
 //ゲームの進行管理をするスクリプト
 public class GameManager : MonoBehaviour {
+    public GameObject hagePrefab;
+    public int hagePicNums;
 
-    public List<GameObject> hagePrefabs = new List<GameObject>();
-    public GameObject hageRare;
+    [Header("通常時の画像")]
+    public Sprite[] hagePics;
+    
+    [Header("幸福時の画像")]
+    public Sprite[] happyHagePics;
+
+    [Header("悲痛時の画像")]
+    public Sprite[] sadHagePics;
     static public int score;
     public int highScore = 0;
     public GameObject currentPicture;
     public GameObject scoreText;
     public Text highScoreText;
-    //string key = "HIGHSCORE";
     HairManager hairManager;
+    
+    //これいるのか
     public bool hasGeneratedHagePic;
+    
     public bool hasGeneratedFirstPic;
     public float timeLimit = 10.0f;
     public GameObject limit;
     public int highScoreOnTimeAttack = 0;
     public Text highScoreTextOnTimeAttack;
-    //string key2 = "HIGHSCOREONTIME";
     public static bool timeAttack;
     public SoundManager sm;
     public int countForLimit;
     public float currentTime;
     public float gameOverTimeLimit = 8.0f;
+    bool isSounded = false;
+    public GameObject startText;
+    public GameObject canvas;
     
     [System.Serializable]
     public class HighScoreData {
@@ -73,42 +85,16 @@ public class GameManager : MonoBehaviour {
 
             if(Input.GetMouseButtonDown(0)) {
 
+                startText.SetActive(false);
+                sm.playStartSound();
+
                 hasGeneratedFirstPic = true;
                 
-                int number = Random.Range(0, hagePrefabs.Count);    
-
-                currentPicture = Instantiate(hagePrefabs[number], new Vector3(7,0,0), Quaternion.identity);
-
-                hasGeneratedHagePic = true;
+                GeneratePic();
             
             }
 
         } else {
-
-            if(currentPicture.GetComponent<HagePicture>().isFlicked) {
-
-                int probab = Random.Range(0, 101);
-
-                if(probab <= 90){
-
-                    int number = Random.Range(0, hagePrefabs.Count);    
-
-                    currentPicture = Instantiate(hagePrefabs[number], new Vector3(7,0,0), Quaternion.identity);
-
-                    hasGeneratedHagePic = true;
-
-                }
-                
-                else{
-
-                    currentPicture = Instantiate(hageRare, new Vector3(7,0,0), Quaternion.identity);
-
-                    hasGeneratedHagePic = true;
-                }
-                
-
-                                
-            }
 
             if(SceneManager.GetActiveScene().name == "Game") {
             
@@ -116,11 +102,19 @@ public class GameManager : MonoBehaviour {
                     
                     currentTime -= Time.deltaTime; 
 
+                    if(currentTime < gameOverTimeLimit/2) currentPicture.GetComponent<Image>().color = new Color(1.0f, Mathf.Abs(Mathf.Sin(currentTime*10)), Mathf.Abs(Mathf.Sin(currentTime*10)), 1.0f);
+
                 } else {
 
                     SaveHighScore(score);
 
-                    sm.SadSound();
+                    //フラグ立てないと何回も鳴る
+                    if(!isSounded) {
+                        
+                        sm.SadSound();
+                        isSounded = true;
+
+                    }
 
                     Invoke("GameOver", 1);
 
@@ -142,8 +136,6 @@ public class GameManager : MonoBehaviour {
         if(currentPicture != null && currentPicture.GetComponent<HagePicture>().isClear) {
             
             currentPicture.GetComponent<HagePicture>().Flick();
-            
-            
 
             if(currentPicture.GetComponent<HagePicture>().isFlicked) {
                 
@@ -152,6 +144,8 @@ public class GameManager : MonoBehaviour {
             
                 currentTime = gameOverTimeLimit;
                 countForLimit++;
+
+                GeneratePic();
 
             }            
         }
@@ -172,6 +166,21 @@ public class GameManager : MonoBehaviour {
             }
         } 
       
+    }
+
+    //画像生成
+    void GeneratePic() {
+        
+        currentPicture = Instantiate(hagePrefab);
+
+        hagePicNums = Random.Range(0, hagePics.Length);
+
+        currentPicture.GetComponent<Image>().sprite = hagePics[hagePicNums];
+        currentPicture.transform.SetParent(canvas.transform, false);
+        currentPicture.GetComponent<RectTransform>().anchoredPosition = new Vector2(800, 0);
+
+        hasGeneratedHagePic = true;
+
     }
 
     //jsonに書きこみ
