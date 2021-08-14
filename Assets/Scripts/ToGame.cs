@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class ToGame : MonoBehaviour
 {
     public void OnClick() {
-
-        SceneManager.LoadScene("Game");
+        transform.DOScale(1.05f, 0.4f).SetEase(Ease.OutElastic).OnComplete(() =>
+        {
+            SceneManager.LoadScene("Game");
+        });
+        
 
     }
 

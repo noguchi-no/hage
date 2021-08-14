@@ -11,8 +11,8 @@ public class HagePicture : MonoBehaviour {
     public bool isFlicked; 
     public bool isClear;
     public static bool isScored;
-    bool isSad;
-    bool isHappy;
+    public bool isSad;
+    public bool isHappy;
     public Sprite hageHappy;
     public Sprite hageSad;
     HairManager hairManager;

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
+using TMPro;
+
 
 //ゲームの進行管理をするスクリプト
 public class GameManager : MonoBehaviour {
@@ -22,25 +24,34 @@ public class GameManager : MonoBehaviour {
     public int highScore = 0;
     public GameObject currentPicture;
     public GameObject scoreText;
-    public Text highScoreText;
+    public TextMeshProUGUI highScoreText;
     HairManager hairManager;
     
     //これいるのか
     public bool hasGeneratedHagePic;
+    static public bool hasNewRecord;
     
     public bool hasGeneratedFirstPic;
-    public float timeLimit = 10.0f;
+    public float timeLimit = 7.0f;
     public GameObject limit;
     public int highScoreOnTimeAttack = 0;
-    public Text highScoreTextOnTimeAttack;
+    public TextMeshProUGUI highScoreTextOnTimeAttack;
     public static bool timeAttack;
     public SoundManager sm;
     public int countForLimit;
     public float currentTime;
     public float gameOverTimeLimit = 8.0f;
     bool isSounded = false;
-    public GameObject startText;
+    
     public GameObject canvas;
+
+    
+
+
+    
+
+
+    
     
     [System.Serializable]
     public class HighScoreData {
@@ -50,7 +61,7 @@ public class GameManager : MonoBehaviour {
     HighScoreData highScoreData = new HighScoreData();
 
     void Start() {
-        
+
         score = 0;
         currentTime = gameOverTimeLimit;
         LoadHighScore();
@@ -78,19 +89,16 @@ public class GameManager : MonoBehaviour {
 		    return;
 	    }
 
-        scoreText.GetComponent<Text>().text = score.ToString();
+        scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
 
         //ボタンを押したら
         if(!hasGeneratedFirstPic) {
-
+            
             if(Input.GetMouseButtonDown(0)) {
-
-                startText.SetActive(false);
                 sm.playStartSound();
-
-                hasGeneratedFirstPic = true;
+                //startText.SetActive(false);
+                Invoke("GameStart", 0.5f);
                 
-                GeneratePic();
             
             }
 
@@ -101,8 +109,23 @@ public class GameManager : MonoBehaviour {
                 if(currentTime > 0) {
                     
                     currentTime -= Time.deltaTime; 
+                    //sad中は点滅なし
+                    if(!currentPicture.GetComponent<HagePicture>().isSad){
 
-                    if(currentTime < gameOverTimeLimit/2) currentPicture.GetComponent<Image>().color = new Color(1.0f, Mathf.Abs(Mathf.Sin(currentTime*10)), Mathf.Abs(Mathf.Sin(currentTime*10)), 1.0f);
+                        if(gameOverTimeLimit > 2.0){
+
+                            if(currentTime < 1.5f) currentPicture.GetComponent<Image>().color = new Color(1.0f, Mathf.Abs(Mathf.Sin(currentTime*10)), Mathf.Abs(Mathf.Sin(currentTime*10)), 1.0f);
+                            
+                            }
+
+                        else{
+
+                            if(currentTime < 0.5f) currentPicture.GetComponent<Image>().color = new Color(1.0f, Mathf.Abs(Mathf.Sin(currentTime*10)), Mathf.Abs(Mathf.Sin(currentTime*10)), 1.0f);
+                            
+                            }
+                    }
+                    
+                    
 
                 } else {
 
@@ -115,18 +138,34 @@ public class GameManager : MonoBehaviour {
                         isSounded = true;
 
                     }
-
+                   
+                    currentPicture.GetComponent<Image>().sprite = sadHagePics[hagePicNums];
                     Invoke("GameOver", 1);
 
                 }
+                //ゲームバランス、要検討
+                if(countForLimit >= 18){
 
-                if(countForLimit >= 5){
+                    gameOverTimeLimit = 1.5f;
+                
+                }
+                if(countForLimit >= 14){
+
+                    gameOverTimeLimit = 2.0f;
+                
+                }
+                if(countForLimit >= 10){
+
+                    gameOverTimeLimit = 2.5f;
+                
+                }
+                if(countForLimit >= 6){
 
                     gameOverTimeLimit = 3.0f;
                 
-                } else if (countForLimit >= 3){
+                } else if (countForLimit >= 2){
 
-                    gameOverTimeLimit = 5.0f;
+                    gameOverTimeLimit = 4.0f;
                 }
 
             }       
@@ -153,17 +192,21 @@ public class GameManager : MonoBehaviour {
         //タイムアタックシーン
         if(SceneManager.GetActiveScene().name == "TimeAttack") {
 
-            if(timeLimit > 0) {
+            if(hasGeneratedFirstPic){
+
+                if(timeLimit > 0) {
             
                 timeLimit -= Time.deltaTime; 
-                limit.GetComponent<Text>().text = "残り時間" + timeLimit.ToString("N1");
-        
-            }  else {
+                limit.GetComponent<TextMeshProUGUI>().text = "残り時間：" + timeLimit.ToString("N1");
+                
+                } else {
 
-                SaveHighScore(score);
-                SceneManager.LoadScene("GameOver");
+                    SaveHighScore(score);
+                    SceneManager.LoadScene("GameOver");
 
+                }
             }
+            
         } 
       
     }
@@ -171,13 +214,25 @@ public class GameManager : MonoBehaviour {
     //画像生成
     void GeneratePic() {
         
+        
         currentPicture = Instantiate(hagePrefab);
+        
+        //hagePics最後をレアな画像にする
+        int probab = Random.Range(0, 101);
 
-        hagePicNums = Random.Range(0, hagePics.Length);
+        if(probab <= 90){
+            hagePicNums = Random.Range(0, hagePics.Length-2);
+        }
+        else{
+            hagePicNums = hagePics.Length-1;
+        }
 
         currentPicture.GetComponent<Image>().sprite = hagePics[hagePicNums];
         currentPicture.transform.SetParent(canvas.transform, false);
+
         currentPicture.GetComponent<RectTransform>().anchoredPosition = new Vector2(800, 0);
+        //画像を1番背面に持ってくる
+        currentPicture.transform.SetAsFirstSibling();
 
         hasGeneratedHagePic = true;
 
@@ -197,7 +252,7 @@ public class GameManager : MonoBehaviour {
             if(_score <= highScore) return;
 
             highScoreData.highScore = _score;
-
+            hasNewRecord = true;
         }
 
         StreamWriter writer;
@@ -232,6 +287,14 @@ public class GameManager : MonoBehaviour {
 
         SceneManager.LoadScene("GameOver");
 
+    }
+    void GameStart(){
+        
+        
+
+                hasGeneratedFirstPic = true;
+                
+                GeneratePic();
     }
 
 }
