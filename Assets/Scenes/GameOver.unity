@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28917761}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2129.3088, y: 2855.2876, z: -2914.085}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -981,8 +981,8 @@ MonoBehaviour:
   sadSE: {fileID: 0}
   happySE: {fileID: 0}
   startSE: {fileID: 0}
-  gameoverSE: {fileID: 8300000, guid: 5686ae92a21021f4a88bbe81fc86d33c, type: 3}
-  aud: {fileID: 0}
+  gameoverSE: {fileID: 8300000, guid: 5a9a3bddb16a9ed4c8a8144d41d8e618, type: 3}
+  aud: {fileID: 1332784829}
 --- !u!82 &1332784829
 AudioSource:
   m_ObjectHideFlags: 0

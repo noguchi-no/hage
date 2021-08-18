@@ -545,7 +545,7 @@ MonoBehaviour:
   happySE: {fileID: 8300000, guid: 94210c5a013934c4292aa1234bb8c752, type: 3}
   startSE: {fileID: 8300000, guid: df113f1da962f8149be62cb3b7d8cd60, type: 3}
   gameoverSE: {fileID: 0}
-  aud: {fileID: 0}
+  aud: {fileID: 94799343}
 --- !u!82 &94799343
 AudioSource:
   m_ObjectHideFlags: 0

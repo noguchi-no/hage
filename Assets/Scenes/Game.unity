@@ -2037,9 +2037,9 @@ MonoBehaviour:
   tapSE: {fileID: 8300000, guid: cf5894225cc604e828e0f30969c79456, type: 3}
   sadSE: {fileID: 8300000, guid: e001d1a566bb1413b847ac9ff6818039, type: 3}
   happySE: {fileID: 8300000, guid: 94210c5a013934c4292aa1234bb8c752, type: 3}
-  startSE: {fileID: 8300000, guid: df113f1da962f8149be62cb3b7d8cd60, type: 3}
+  startSE: {fileID: 8300000, guid: c53f6a38d041d91498fc50b171397b17, type: 3}
   gameoverSE: {fileID: 0}
-  aud: {fileID: 0}
+  aud: {fileID: 1827694312}
 --- !u!82 &1827694312
 AudioSource:
   m_ObjectHideFlags: 0
