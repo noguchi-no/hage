@@ -15,19 +15,18 @@ public class GameOverManager : MonoBehaviour
         //scoreText.GetComponent<Text>().text = "<size=100>" + GameManager.score.ToString() + "</size>" + "本抜き";
     
     }
-    /*
+    
+
     void Update() {
         
         //謎に一回だけエラー出る
         if(!isSounded) {
             
-           
-
             sm.playGameoverSound();
 
             isSounded = true;
         }
-    }*/
+    }
 
     public void OnClick() {
 
