@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 //髪の毛を管理するスクリプト
 public class HairManager : MonoBehaviour {
@@ -12,7 +13,13 @@ public class HairManager : MonoBehaviour {
     public bool hasGeneratedHair;
     public GameManager gameManager;
     public GameObject canvas;
-    public int hairCount;    
+    public int hairCount;  
+
+    public int hairNums;
+    [Header("毛の画像")]
+    public Sprite[] hairPics;
+    public GameObject hair;
+
     void Update()
     {
         //時間が停止してたらリターンする
@@ -31,16 +38,27 @@ public class HairManager : MonoBehaviour {
                 hairCount = (int)Random.Range(0, 5.99f);
             
             }
-            
+            //最後がレア髪
             for(int i = 0; i < hairCount; i++) {
+                if(gameManager.hagePicNums == gameManager.hagePics.Length-1){
 
-                GameObject hair = Instantiate(hairPrefab);
+                    hairNums = hairPics.Length-1;
+                    
+                }
+                else{
+
+                    hairNums = Random.Range(0,hairPics.Length-1);
+                    
+                }
+
+                hair = Instantiate(hairPrefab);
+                hair.GetComponent<Image>().sprite = hairPics[hairNums];
 
                 hairList.Add(hair);
                 hairPosxList.Add(0);
-
+                
                 hair.transform.SetParent(gameManager.currentPicture.transform, false);
-                hair.GetComponent<RectTransform>().anchoredPosition = new Vector2(Random.Range(-250, 250), Random.Range(300, 400));
+                hair.GetComponent<RectTransform>().anchoredPosition = new Vector2(Random.Range(-220, 220), Random.Range(145, 165));
 
 
             } 

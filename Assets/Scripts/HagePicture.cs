@@ -21,6 +21,7 @@ public class HagePicture : MonoBehaviour {
     GameManager gameManager;
     float speed = -3600.0f;
     int hagePicNums;
+    
     void Start() {
 
         hairManager = GameObject.Find("HairManager").GetComponent<HairManager>();
@@ -99,7 +100,7 @@ public class HagePicture : MonoBehaviour {
 
             //毛が消えていないなら
             if(!isClear) {
-
+                
                 speed = 0;
 
             } else {

@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour {
     static public bool hasNewRecord;
     
     public bool hasGeneratedFirstPic;
-    public float timeLimit = 7.0f;
+    public float timeLimit = 30.0f;
     public GameObject limit;
     public int highScoreOnTimeAttack = 0;
     public TextMeshProUGUI highScoreTextOnTimeAttack;
@@ -44,14 +44,6 @@ public class GameManager : MonoBehaviour {
     bool isSounded = false;
     
     public GameObject canvas;
-
-    
-
-
-    
-
-
-    
     
     [System.Serializable]
     public class HighScoreData {
@@ -59,6 +51,11 @@ public class GameManager : MonoBehaviour {
         public int highScoreOnTimeAttack;
     }
     HighScoreData highScoreData = new HighScoreData();
+
+    public GameObject stopButton; 
+    
+    private float timeForStartInvoke = 0.5f;
+    public bool isStarted;
 
     void Start() {
 
@@ -88,18 +85,23 @@ public class GameManager : MonoBehaviour {
         if(Mathf.Approximately(Time.timeScale, 0f)){
 		    return;
 	    }
-
+        
+       
+        
         scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
 
         //ボタンを押したら
         if(!hasGeneratedFirstPic) {
             
             if(Input.GetMouseButtonDown(0)) {
+
                 sm.playStartSound();
-                //startText.SetActive(false);
-                Invoke("GameStart", 0.5f);
-                
-            
+
+                isStarted =true;
+
+                Invoke("GameStart", timeForStartInvoke);
+
+                hasGeneratedFirstPic = true;
             }
 
         } else {
@@ -144,22 +146,22 @@ public class GameManager : MonoBehaviour {
 
                 }
                 //ゲームバランス、要検討
-                if(countForLimit >= 18){
+                if(countForLimit >= 16){
 
                     gameOverTimeLimit = 1.5f;
                 
                 }
-                if(countForLimit >= 14){
+                if(countForLimit >= 11){
 
                     gameOverTimeLimit = 2.0f;
                 
                 }
-                if(countForLimit >= 10){
+                if(countForLimit >= 8){
 
                     gameOverTimeLimit = 2.5f;
                 
                 }
-                if(countForLimit >= 6){
+                if(countForLimit >= 4){
 
                     gameOverTimeLimit = 3.0f;
                 
@@ -214,28 +216,30 @@ public class GameManager : MonoBehaviour {
     //画像生成
     void GeneratePic() {
         
+            currentPicture = Instantiate(hagePrefab);
         
-        currentPicture = Instantiate(hagePrefab);
+            //hagePics最後をレアな画像にする
+            int probab = Random.Range(0, 101);
+            Debug.Log(probab);
+
+            if(probab <= 92){
+                hagePicNums = Random.Range(0, hagePics.Length-2);
+            }
+            else{
+                hagePicNums = hagePics.Length-1;
+            }
+
+            currentPicture.GetComponent<Image>().sprite = hagePics[hagePicNums];
+            currentPicture.transform.SetParent(canvas.transform, false);
+
+            currentPicture.GetComponent<RectTransform>().anchoredPosition = new Vector2(800, 0);
+            //画像を1番背面に持ってくる
+            currentPicture.transform.SetAsFirstSibling();
+
+            hasGeneratedHagePic = true;
+
         
-        //hagePics最後をレアな画像にする
-        int probab = Random.Range(0, 101);
-
-        if(probab <= 90){
-            hagePicNums = Random.Range(0, hagePics.Length-2);
-        }
-        else{
-            hagePicNums = hagePics.Length-1;
-        }
-
-        currentPicture.GetComponent<Image>().sprite = hagePics[hagePicNums];
-        currentPicture.transform.SetParent(canvas.transform, false);
-
-        currentPicture.GetComponent<RectTransform>().anchoredPosition = new Vector2(800, 0);
-        //画像を1番背面に持ってくる
-        currentPicture.transform.SetAsFirstSibling();
-
-        hasGeneratedHagePic = true;
-
+        
     }
 
     //jsonに書きこみ
@@ -289,12 +293,12 @@ public class GameManager : MonoBehaviour {
 
     }
     void GameStart(){
-        
-        
 
-                hasGeneratedFirstPic = true;
-                
                 GeneratePic();
+                
+                stopButton.SetActive(true);
+
+                isStarted = false;
     }
 
 }
