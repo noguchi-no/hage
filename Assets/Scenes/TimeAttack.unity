@@ -509,6 +509,7 @@ MonoBehaviour:
   gameOverTimeLimit: 8
   canvas: {fileID: 1557030182}
   stopButton: {fileID: 1454326638}
+  isStarted: 0
 --- !u!4 &508120821
 Transform:
   m_ObjectHideFlags: 0

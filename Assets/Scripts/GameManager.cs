@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour {
     public TextMeshProUGUI highScoreText;
     HairManager hairManager;
     
-    //これいるのか
+    //これいるのか←なかったらなんかエラーHairManagerでも使ってる
     public bool hasGeneratedHagePic;
     static public bool hasNewRecord;
     
@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour {
 
                 sm.playStartSound();
 
-                isStarted =true;
+                //isStarted =true;
 
                 Invoke("GameStart", timeForStartInvoke);
 
@@ -112,19 +112,19 @@ public class GameManager : MonoBehaviour {
                     
                     currentTime -= Time.deltaTime; 
                     //sad中は点滅なし
-                    if(!currentPicture.GetComponent<HagePicture>().isSad){
+                    if(hasGeneratedHagePic&&!currentPicture.GetComponent<HagePicture>().isSad){
 
                         if(gameOverTimeLimit > 2.0){
 
                             if(currentTime < 1.5f) currentPicture.GetComponent<Image>().color = new Color(1.0f, Mathf.Abs(Mathf.Sin(currentTime*10)), Mathf.Abs(Mathf.Sin(currentTime*10)), 1.0f);
                             
-                            }
+                        }
 
                         else{
 
                             if(currentTime < 0.5f) currentPicture.GetComponent<Image>().color = new Color(1.0f, Mathf.Abs(Mathf.Sin(currentTime*10)), Mathf.Abs(Mathf.Sin(currentTime*10)), 1.0f);
                             
-                            }
+                        }
                     }
                     
                     
@@ -143,22 +143,22 @@ public class GameManager : MonoBehaviour {
                    
                     currentPicture.GetComponent<Image>().sprite = sadHagePics[hagePicNums];
                     Invoke("GameOver", 1);
-
+                    return;
                 }
                 //ゲームバランス、要検討
-                if(countForLimit >= 16){
+                if(countForLimit >= 15){
 
-                    gameOverTimeLimit = 1.5f;
+                    gameOverTimeLimit = 1.2f;
                 
                 }
                 if(countForLimit >= 11){
 
-                    gameOverTimeLimit = 2.0f;
+                    gameOverTimeLimit = 1.5f;
                 
                 }
                 if(countForLimit >= 8){
 
-                    gameOverTimeLimit = 2.5f;
+                    gameOverTimeLimit = 2.0f;
                 
                 }
                 if(countForLimit >= 4){
@@ -175,6 +175,7 @@ public class GameManager : MonoBehaviour {
         }
         
         if(currentPicture != null && currentPicture.GetComponent<HagePicture>().isClear) {
+            
             
             currentPicture.GetComponent<HagePicture>().Flick();
 
@@ -239,7 +240,6 @@ public class GameManager : MonoBehaviour {
             hasGeneratedHagePic = true;
 
         
-        
     }
 
     //jsonに書きこみ
@@ -298,7 +298,7 @@ public class GameManager : MonoBehaviour {
                 
                 stopButton.SetActive(true);
 
-                isStarted = false;
+                //isStarted = false;
     }
 
 }

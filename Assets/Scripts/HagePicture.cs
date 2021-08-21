@@ -39,7 +39,8 @@ public class HagePicture : MonoBehaviour {
 
         //他のボタンが押された時、動作させないための処理
         if(EventSystem.current.currentSelectedGameObject != null) return;
-
+        
+        
             if(Input.GetMouseButtonDown(0)) {
 
                 startPos = Input.mousePosition;
@@ -57,6 +58,7 @@ public class HagePicture : MonoBehaviour {
                         speed = -3600.0f;
                         gameManager.sm.FlickSound();
                         isFlicked = true;
+                        
                     }
                 
                 } else if(swipeLength == 0) {
