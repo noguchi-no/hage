@@ -56,8 +56,9 @@ public class HagePicture : MonoBehaviour {
 
                     if(!isSad){
                         speed = -3600.0f;
-                        gameManager.sm.FlickSound();
                         isFlicked = true;
+
+                        gameManager.sm.FlickSound();
                         
                     }
                 
@@ -73,8 +74,9 @@ public class HagePicture : MonoBehaviour {
 
                     gameManager.SaveHighScore(GameManager.score);
 
-                    Invoke("GameOver", 1);
-                
+                    //Invoke("GameOver", 1);
+                    StartCoroutine("GameOver");
+
                 }
             
             
@@ -82,7 +84,8 @@ public class HagePicture : MonoBehaviour {
 
     }
 
-    void GameOver(){
+    IEnumerator GameOver(){
+        yield return new WaitForSeconds(1.0f);
 
         SceneManager.LoadScene("GameOver");
 

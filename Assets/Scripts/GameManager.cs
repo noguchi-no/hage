@@ -97,8 +97,8 @@ public class GameManager : MonoBehaviour {
                 sm.playStartSound();
 
                 //isStarted =true;
-
-                Invoke("GameStart", timeForStartInvoke);
+                StartCoroutine("GameStart");
+                //Invoke("", timeForStartInvoke);
 
                 hasGeneratedFirstPic = true;
             }
@@ -141,7 +141,8 @@ public class GameManager : MonoBehaviour {
                     }
                    
                     currentPicture.GetComponent<Image>().sprite = sadHagePics[hagePicNums];
-                    Invoke("GameOver", 1);
+                    StartCoroutine("GameOver");
+                    //Invoke("GameOver", 1);
                     return;
                 }
                 //ゲームバランス、要検討
@@ -174,8 +175,7 @@ public class GameManager : MonoBehaviour {
         }
         
         if(currentPicture != null && currentPicture.GetComponent<HagePicture>().isClear) {
-            
-            
+
             currentPicture.GetComponent<HagePicture>().Flick();
 
             if(currentPicture.GetComponent<HagePicture>().isFlicked) {
@@ -286,14 +286,17 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    void GameOver(){
+    private IEnumerator GameOver(){
+        yield return new WaitForSeconds(1.0f);
 
         SceneManager.LoadScene("GameOver");
 
     }
-    void GameStart(){
+    private IEnumerator GameStart(){
 
-                GeneratePic();
+        yield return new WaitForSeconds(timeForStartInvoke);
+
+        GeneratePic();
                 
                 stopButton.SetActive(true);
 
