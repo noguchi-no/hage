@@ -104,6 +104,7 @@ public class HagePicture : MonoBehaviour {
             if(!isClear) {
                 
                 speed = 0;
+                this.GetComponent<RectTransform>().anchoredPosition = new Vector2(0.0f, this.GetComponent<RectTransform>().anchoredPosition.y);
 
             } else {
 
@@ -113,6 +114,7 @@ public class HagePicture : MonoBehaviour {
                     if(!isHappy){
                         
                         this.GetComponent<Image>().sprite = gameManager.happyHagePics[hagePicNums];
+                        this.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                         gameManager.sm.HappySound();
                         isHappy = true;
                     }
@@ -124,6 +126,7 @@ public class HagePicture : MonoBehaviour {
                         if(!isHappy){
                             
                             this.GetComponent<Image>().sprite = gameManager.happyHagePics[hagePicNums];
+                            this.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                             gameManager.sm.HappySound();
                             isHappy = true;
                         }

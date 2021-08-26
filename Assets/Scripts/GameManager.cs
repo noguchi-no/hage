@@ -86,7 +86,6 @@ public class GameManager : MonoBehaviour {
 		    return;
 	    }
         
-       
         
         scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
 
