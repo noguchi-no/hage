@@ -56,8 +56,9 @@ public class HagePicture : MonoBehaviour {
 
                     if(!isSad){
                         speed = -3600.0f;
-                        gameManager.sm.FlickSound();
                         isFlicked = true;
+
+                        gameManager.sm.FlickSound();
                         
                     }
                 
@@ -73,8 +74,9 @@ public class HagePicture : MonoBehaviour {
 
                     gameManager.SaveHighScore(GameManager.score);
 
-                    Invoke("GameOver", 1);
-                
+                    //Invoke("GameOver", 1);
+                    StartCoroutine("GameOver");
+
                 }
             
             
@@ -82,7 +84,8 @@ public class HagePicture : MonoBehaviour {
 
     }
 
-    void GameOver(){
+    IEnumerator GameOver(){
+        yield return new WaitForSeconds(1.0f);
 
         SceneManager.LoadScene("GameOver");
 
@@ -104,6 +107,7 @@ public class HagePicture : MonoBehaviour {
             if(!isClear) {
                 
                 speed = 0;
+                this.GetComponent<RectTransform>().anchoredPosition = new Vector2(0.0f, this.GetComponent<RectTransform>().anchoredPosition.y);
 
             } else {
 
@@ -113,6 +117,7 @@ public class HagePicture : MonoBehaviour {
                     if(!isHappy){
                         
                         this.GetComponent<Image>().sprite = gameManager.happyHagePics[hagePicNums];
+                        this.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                         gameManager.sm.HappySound();
                         isHappy = true;
                     }
@@ -124,6 +129,7 @@ public class HagePicture : MonoBehaviour {
                         if(!isHappy){
                             
                             this.GetComponent<Image>().sprite = gameManager.happyHagePics[hagePicNums];
+                            this.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                             gameManager.sm.HappySound();
                             isHappy = true;
                         }
