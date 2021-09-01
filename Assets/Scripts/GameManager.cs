@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
     HairManager hairManager;
     
     //これいるのか←なかったらなんかエラーHairManagerでも使ってる
+
     public bool hasGeneratedHagePic;
     static public bool hasNewRecord;
     
@@ -216,7 +217,7 @@ public class GameManager : MonoBehaviour {
     //画像生成
     void GeneratePic() {
         
-            currentPicture = Instantiate(hagePrefab);
+            currentPicture = Instantiate(hagePrefab, new Vector2(800, 0), Quaternion.identity);
         
             //hagePics最後をレアな画像にする
             int probab = Random.Range(0, 101);
@@ -230,9 +231,10 @@ public class GameManager : MonoBehaviour {
             }
 
             currentPicture.GetComponent<Image>().sprite = hagePics[hagePicNums];
+
             currentPicture.transform.SetParent(canvas.transform, false);
 
-            currentPicture.GetComponent<RectTransform>().anchoredPosition = new Vector2(800, 0);
+            //currentPicture.GetComponent<RectTransform>().anchoredPosition = new Vector2(800, 0);
             //画像を1番背面に持ってくる
             currentPicture.transform.SetAsFirstSibling();
 

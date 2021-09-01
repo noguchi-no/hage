@@ -18,7 +18,7 @@ public class HairManager : MonoBehaviour {
     public int hairNums;
     [Header("毛の画像")]
     public Sprite[] hairPics;
-    public GameObject hair;
+    //public GameObject hair;
 
     void Update()
     {
@@ -51,14 +51,14 @@ public class HairManager : MonoBehaviour {
                     
                 }
 
-                hair = Instantiate(hairPrefab);
+                GameObject hair = Instantiate(hairPrefab, new Vector2(Random.Range(-220, 220), Random.Range(145, 165)), Quaternion.Euler(0 , 0, Random.Range(-5, 5)));
                 hair.GetComponent<Image>().sprite = hairPics[hairNums];
 
                 hairList.Add(hair);
                 hairPosxList.Add(0);
                 
                 hair.transform.SetParent(gameManager.currentPicture.transform, false);
-                hair.GetComponent<RectTransform>().anchoredPosition = new Vector2(Random.Range(-220, 220), Random.Range(145, 165));
+                //hair.GetComponent<RectTransform>().anchoredPosition = new Vector2();
 
 
             } 
