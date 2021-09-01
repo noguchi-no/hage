@@ -1227,7 +1227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.41509432, g: 0.36222854, b: 0.36222854, a: 0.11372549}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.11372549}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1436,7 +1436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Size: {x: 1080, y: 1920}
-  AdjType: 1
+  AdjType: 0
 --- !u!1 &723356884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,6 +1786,7 @@ GameObject:
   - component: {fileID: 946184073}
   - component: {fileID: 946184075}
   - component: {fileID: 946184074}
+  - component: {fileID: 946184076}
   m_Layer: 5
   m_Name: PopUp
   m_TagString: Untagged
@@ -1853,6 +1854,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946184072}
   m_CullTransparentMesh: 1
+--- !u!114 &946184076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946184072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3fe72d17bf3c644aaa8f4bbe7eb273f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Size: {x: 1080, y: 1920}
+  AdjType: 1
 --- !u!1 &1002853968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2539,7 +2554,6 @@ GameObject:
   - component: {fileID: 1182039800}
   - component: {fileID: 1182039799}
   - component: {fileID: 1182039798}
-  - component: {fileID: 1182039801}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -2697,20 +2711,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1182039796}
   m_CullTransparentMesh: 1
---- !u!114 &1182039801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1182039796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3fe72d17bf3c644aaa8f4bbe7eb273f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Size: {x: 1080, y: 1920}
-  AdjType: 1
 --- !u!1 &1255990344
 GameObject:
   m_ObjectHideFlags: 0
@@ -3120,7 +3120,7 @@ GameObject:
   - component: {fileID: 1330145987}
   - component: {fileID: 1330145986}
   - component: {fileID: 1330145988}
-  - component: {fileID: 1330145985}
+  - component: {fileID: 1330145989}
   m_Layer: 5
   m_Name: ToInstructionButton
   m_TagString: Untagged
@@ -3149,20 +3149,6 @@ RectTransform:
   m_AnchoredPosition: {x: -300, y: 766}
   m_SizeDelta: {x: 190, y: 190}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1330145985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330145983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3fe72d17bf3c644aaa8f4bbe7eb273f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Size: {x: 1080, y: 1920}
-  AdjType: 1
 --- !u!114 &1330145986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3293,6 +3279,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1330145989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330145983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3fe72d17bf3c644aaa8f4bbe7eb273f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Size: {x: 1080, y: 1920}
+  AdjType: 0
 --- !u!1 &1355934359
 GameObject:
   m_ObjectHideFlags: 0
@@ -3791,6 +3791,7 @@ GameObject:
   - component: {fileID: 1683424512}
   - component: {fileID: 1683424514}
   - component: {fileID: 1683424513}
+  - component: {fileID: 1683424515}
   m_Layer: 5
   m_Name: PopUp 2
   m_TagString: Untagged
@@ -3864,6 +3865,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683424511}
   m_CullTransparentMesh: 1
+--- !u!114 &1683424515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683424511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3fe72d17bf3c644aaa8f4bbe7eb273f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Size: {x: 1080, y: 1920}
+  AdjType: 1
 --- !u!1 &1850442297
 GameObject:
   m_ObjectHideFlags: 0

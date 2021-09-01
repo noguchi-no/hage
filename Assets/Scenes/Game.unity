@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 7570188}
   - component: {fileID: 7570187}
   - component: {fileID: 7570186}
+  - component: {fileID: 7570190}
   m_Layer: 5
   m_Name: BackGround
   m_TagString: Untagged
@@ -243,6 +244,20 @@ RectTransform:
   m_AnchoredPosition: {x: -323, y: -766}
   m_SizeDelta: {x: 930, y: 1806.544}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7570190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7570185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3fe72d17bf3c644aaa8f4bbe7eb273f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Size: {x: 1080, y: 1920}
+  AdjType: 0
 --- !u!1 &200067942
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,7 +997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Size: {x: 1080, y: 1920}
-  AdjType: 1
+  AdjType: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1756,7 +1771,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7c04290890aaf4d3ab9e430ae8c633f8, type: 3}
   - {fileID: 21300000, guid: ed869cc2a76a4447d99b689e73166a03, type: 3}
   - {fileID: 21300000, guid: ee105a57b661242ee9bfd59e0b60ed58, type: 3}
-  hair: {fileID: 0}
 --- !u!4 &1024020516
 Transform:
   m_ObjectHideFlags: 0
@@ -2273,6 +2287,7 @@ GameObject:
   - component: {fileID: 1865368436}
   - component: {fileID: 1865368438}
   - component: {fileID: 1865368437}
+  - component: {fileID: 1865368439}
   m_Layer: 5
   m_Name: PopUp
   m_TagString: Untagged
@@ -2339,3 +2354,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865368435}
   m_CullTransparentMesh: 1
+--- !u!114 &1865368439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865368435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3fe72d17bf3c644aaa8f4bbe7eb273f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Size: {x: 1080, y: 1920}
+  AdjType: 1
