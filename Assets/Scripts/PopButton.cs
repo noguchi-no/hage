@@ -1,17 +1,23 @@
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace nkjzm
 {
+    
     /// <summary>
     /// ポップに押されるボタン
     /// </summary>
     public class PopButton : Button
     {
+        Vector3 defaultScale;
+        
         Tweener tweener = null;
         new void Start()
         {
+            defaultScale = transform.localScale;
             base.Start();
 
             // ボタンアニメーション
@@ -22,7 +28,7 @@ namespace nkjzm
                 {
                     tweener.Kill();
                     tweener = null;
-                    transform.localScale = Vector3.one;
+                    transform.localScale = defaultScale;
                 }
                 tweener = transform.DOPunchScale(
                     punch: Vector3.one * 0.1f,
