@@ -636,6 +636,7 @@ MonoBehaviour:
   currentPicture: {fileID: 0}
   scoreText: {fileID: 728431805}
   highScoreText: {fileID: 361013169}
+  hairManager: {fileID: 1024020515}
   hasGeneratedHagePic: 0
   hasGeneratedFirstPic: 0
   timeLimit: 7

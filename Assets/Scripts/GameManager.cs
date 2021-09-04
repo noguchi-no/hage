@@ -25,13 +25,9 @@ public class GameManager : MonoBehaviour {
     public GameObject currentPicture;
     public GameObject scoreText;
     public TextMeshProUGUI highScoreText;
-    HairManager hairManager;
-    
-    //これいるのか←なかったらなんかエラーHairManagerでも使ってる
-
+    public HairManager hairManager;
     public bool hasGeneratedHagePic;
     static public bool hasNewRecord;
-    
     public bool hasGeneratedFirstPic;
     public float timeLimit = 30.0f;
     public GameObject limit;
@@ -77,7 +73,6 @@ public class GameManager : MonoBehaviour {
             timeAttack = false;
         }
         
-        hairManager = GameObject.Find("HairManager").GetComponent<HairManager>();
     }
 
     // Update is called once per frame
@@ -142,8 +137,10 @@ public class GameManager : MonoBehaviour {
                     }
                    
                     currentPicture.GetComponent<Image>().sprite = sadHagePics[hagePicNums];
+                    
                     StartCoroutine("GameOver");
                     //Invoke("GameOver", 1);
+
                     return;
                 }
                 //ゲームバランス、要検討
@@ -221,7 +218,6 @@ public class GameManager : MonoBehaviour {
         
             //hagePics最後をレアな画像にする
             int probab = Random.Range(0, 101);
-            Debug.Log(probab);
 
             if(probab <= 92){
                 hagePicNums = Random.Range(0, hagePics.Length-2);
@@ -300,9 +296,9 @@ public class GameManager : MonoBehaviour {
 
         GeneratePic();
                 
-                stopButton.SetActive(true);
+        stopButton.SetActive(true);
 
-                //isStarted = false;
+        //isStarted = false;
     }
 
 }
