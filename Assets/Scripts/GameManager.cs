@@ -5,13 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
 using TMPro;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 
 //ゲームの進行管理をするスクリプト
 public class GameManager : MonoBehaviour {
     public GameObject hagePrefab;
     public int hagePicNums;
-
     [Header("通常時の画像")]
     public Sprite[] hagePics;
     
@@ -38,8 +39,7 @@ public class GameManager : MonoBehaviour {
     public int countForLimit;
     public float currentTime;
     public float gameOverTimeLimit = 8.0f;
-    bool isSounded = false;
-    
+    public bool isSounded = false;    
     public GameObject canvas;
     
     [System.Serializable]
@@ -47,13 +47,22 @@ public class GameManager : MonoBehaviour {
         public int highScore;
         public int highScoreOnTimeAttack;
     }
+
     HighScoreData highScoreData = new HighScoreData();
 
-    public GameObject stopButton; 
-    
+    public GameObject stopButton;     
     private float timeForStartInvoke = 0.5f;
     public bool isStarted;
+    public static bool timeUp;
+    
 
+    private async UniTaskVoid GameO(CancellationToken token)
+   {
+       await UniTask.Delay(1000, cancellationToken: token);
+
+       SceneManager.LoadScene("GameOver");
+   }
+   
     void Start() {
 
         score = 0;
@@ -72,6 +81,7 @@ public class GameManager : MonoBehaviour {
 
             timeAttack = false;
         }
+        
         
     }
 
@@ -121,11 +131,9 @@ public class GameManager : MonoBehaviour {
                             
                         }
                     }
-                    
-                    
-
+                   
                 } else {
-
+                    
                     SaveHighScore(score);
 
                     //フラグ立てないと何回も鳴る
@@ -138,10 +146,12 @@ public class GameManager : MonoBehaviour {
                    
                     currentPicture.GetComponent<Image>().sprite = sadHagePics[hagePicNums];
                     
-                    StartCoroutine("GameOver");
+                    var token = this.GetCancellationTokenOnDestroy();
+                    GameO(token).Forget();
+                    //StartCoroutine("GameOver");
                     //Invoke("GameOver", 1);
-
-                    return;
+                    
+                    //return;
                 }
                 //ゲームバランス、要検討
                 if(countForLimit >= 15){
@@ -202,8 +212,9 @@ public class GameManager : MonoBehaviour {
                 } else {
 
                     SaveHighScore(score);
+                    timeUp = true;
                     SceneManager.LoadScene("GameOver");
-
+                    
                 }
             }
             
@@ -236,7 +247,6 @@ public class GameManager : MonoBehaviour {
 
             hasGeneratedHagePic = true;
 
-        
     }
 
     //jsonに書きこみ
@@ -283,13 +293,18 @@ public class GameManager : MonoBehaviour {
         highScoreOnTimeAttack = highScoreData.highScoreOnTimeAttack;
 
     }
+        
+    
+    /*private IEnumerator GameOver(){
 
-    private IEnumerator GameOver(){
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(timeForGameOver);
 
         SceneManager.LoadScene("GameOver");
+        
+    }*/
 
-    }
+   
+   
     private IEnumerator GameStart(){
 
         yield return new WaitForSeconds(timeForStartInvoke);

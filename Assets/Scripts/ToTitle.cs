@@ -8,7 +8,7 @@ using DG.Tweening;
 public class ToTitle : MonoBehaviour
 {
     public void OnClick() {
-        transform.DOScale(1.05f, 0.3f).SetEase(Ease.OutElastic).OnComplete(() =>
+        transform.DOScale(1.05f, 0.2f).SetEase(Ease.OutElastic).OnComplete(() =>
         {
             SceneManager.LoadScene("Title");
         });

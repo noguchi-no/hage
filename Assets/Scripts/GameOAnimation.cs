@@ -20,7 +20,9 @@ public class GameOAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(GameManager.timeUp){
+            gameOverText.text = "タイムアップ";
+        }
         newRecordText.alpha = 0;
         unitText.alpha = 0;
         gameOverText.alpha = 0;

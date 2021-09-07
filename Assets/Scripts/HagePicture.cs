@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
+using Cysharp.Threading.Tasks;
+using System.Threading;
+//using DG.Tweening;
 
 //はげの画像を操るスクリプト
 public class HagePicture : MonoBehaviour {
@@ -21,7 +23,15 @@ public class HagePicture : MonoBehaviour {
     GameManager gameManager;
     float speed = -3600.0f;
     int hagePicNums;
+    public bool isGO;
     
+    private async UniTaskVoid GameO(CancellationToken token)
+    {
+       await UniTask.Delay(1000, cancellationToken: token);
+
+       SceneManager.LoadScene("GameOver");
+    }
+
     void Start() {
 
         hairManager = GameObject.Find("HairManager").GetComponent<HairManager>();
@@ -38,7 +48,7 @@ public class HagePicture : MonoBehaviour {
     public void Flick() {
 
         //他のボタンが押された時、動作させないための処理
-        if(EventSystem.current.currentSelectedGameObject != null) return;
+        if (Mathf.Approximately(Time.timeScale, 0f)) return;
         
         
             if(Input.GetMouseButtonDown(0)) {
@@ -64,31 +74,46 @@ public class HagePicture : MonoBehaviour {
                 
                 } else if(swipeLength == 0) {
                     
-                    gameManager.sm.SadSound();
+                    if(!gameManager.isSounded){
+
+                        gameManager.sm.SadSound();
+                        gameManager.isSounded = true;
+                    }
+                    
                     
                     this.GetComponent<Image>().sprite = gameManager.sadHagePics[hagePicNums];
                     
                     Debug.Log(this.GetComponent<Image>().sprite);
 
                     isSad = true;
-
+                    /*↓Unitask2
+                    var token = this.GetCancellationTokenOnDestroy();
+                    GameO(token).Forget();*/
+                    
                     gameManager.SaveHighScore(GameManager.score);
-
+                    
+                    //DOVirtual.DelayedCall (1f, ()=>GOver());  
+                    //StartCoroutine("GameOver");
                     //Invoke("GameOver", 1);
-                    StartCoroutine("GameOver");
-
+                    //
+                    //return;
+                    
                 }
-            
             
             }   
 
     }
 
-    IEnumerator GameOver(){
+    private IEnumerator GameOver(){
+
         yield return new WaitForSeconds(1.0f);
 
         SceneManager.LoadScene("GameOver");
-
+        	
+        
+    }
+    void GOver(){
+        SceneManager.LoadScene("GameOver");
     }
     
     void Update() {

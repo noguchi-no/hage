@@ -51,7 +51,7 @@ public class HairManager : MonoBehaviour {
                     
                 }
 
-                GameObject hair = Instantiate(hairPrefab, new Vector2(Random.Range(-220, 220), Random.Range(145, 165)), Quaternion.Euler(0 , 0, Random.Range(-5, 5)));
+                GameObject hair = Instantiate(hairPrefab, new Vector2(Random.Range(-220, 220), Random.Range(145, 165)), Quaternion.Euler(0 , 0, Random.Range(-3, 3)));
                 hair.GetComponent<Image>().sprite = hairPics[hairNums];
 
                 hairList.Add(hair);
