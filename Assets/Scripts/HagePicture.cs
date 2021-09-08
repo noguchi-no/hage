@@ -83,14 +83,15 @@ public class HagePicture : MonoBehaviour {
                     
                     this.GetComponent<Image>().sprite = gameManager.sadHagePics[hagePicNums];
                     
-                    Debug.Log(this.GetComponent<Image>().sprite);
+                    //Debug.Log(this.GetComponent<Image>().sprite);
 
                     isSad = true;
-                    /*↓Unitask2
-                    var token = this.GetCancellationTokenOnDestroy();
-                    GameO(token).Forget();*/
+                    
                     
                     gameManager.SaveHighScore(GameManager.score);
+                    //↓Unitask2
+                    var token = this.GetCancellationTokenOnDestroy();
+                    GameO(token).Forget();
                     
                     //DOVirtual.DelayedCall (1f, ()=>GOver());  
                     //StartCoroutine("GameOver");
@@ -103,7 +104,7 @@ public class HagePicture : MonoBehaviour {
             }   
 
     }
-
+    /*
     private IEnumerator GameOver(){
 
         yield return new WaitForSeconds(1.0f);
@@ -111,7 +112,7 @@ public class HagePicture : MonoBehaviour {
         SceneManager.LoadScene("GameOver");
         	
         
-    }
+    }*/
     void GOver(){
         SceneManager.LoadScene("GameOver");
     }

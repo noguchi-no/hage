@@ -254,14 +254,21 @@ public class GameManager : MonoBehaviour {
 
         if(SceneManager.GetActiveScene().name == "TimeAttack") {
 
-            if (_score <= highScoreOnTimeAttack) return;
+            if (_score <= highScoreOnTimeAttack) {
+                hasNewRecord = false;
+                return;
+
+            }
 
             highScoreData.highScoreOnTimeAttack = _score;
+            hasNewRecord = true;
 
         } else {
 
-            if(_score <= highScore) return;
-
+            if(_score <= highScore) {
+                hasNewRecord = false;
+                return;
+            }
             highScoreData.highScore = _score;
             hasNewRecord = true;
         }
@@ -270,7 +277,7 @@ public class GameManager : MonoBehaviour {
 
         string jsonstr = JsonUtility.ToJson(highScoreData);
 
-        writer = new StreamWriter(Application.dataPath + "/savedata.json", false);
+        writer = new StreamWriter(Application.persistentDataPath + "/savedata.json", false);
         writer.Write(jsonstr);
         writer.Flush();
         writer.Close();
@@ -283,7 +290,7 @@ public class GameManager : MonoBehaviour {
 
         StreamReader reader;
 
-        reader = new StreamReader(Application.dataPath + "/savedata.json", false);
+        reader = new StreamReader(Application.persistentDataPath + "/savedata.json", false);
         datastr = reader.ReadToEnd();
         reader.Close();
 
