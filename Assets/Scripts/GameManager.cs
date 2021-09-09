@@ -7,6 +7,7 @@ using System.IO;
 using TMPro;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using DG.Tweening;
 
 
 //ゲームの進行管理をするスクリプト
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour {
     public float gameOverTimeLimit = 8.0f;
     public bool isSounded = false;    
     public GameObject canvas;
+    private bool isAnimated;
     
     [System.Serializable]
     public class HighScoreData {
@@ -54,6 +56,7 @@ public class GameManager : MonoBehaviour {
     private float timeForStartInvoke = 0.5f;
     public bool isStarted;
     public static bool timeUp;
+    
     
 
     private async UniTaskVoid GameO(CancellationToken token)
@@ -71,13 +74,13 @@ public class GameManager : MonoBehaviour {
 
         if(SceneManager.GetActiveScene().name == "TimeAttack") {
 
-            highScoreTextOnTimeAttack.text = "ベスト：" + highScoreOnTimeAttack.ToString(); 
+            highScoreTextOnTimeAttack.text = "ハイスコア：" + highScoreOnTimeAttack.ToString(); 
             
             timeAttack = true;
         
         } else {
             
-            highScoreText.text = "ベスト：" + highScore.ToString(); 
+            highScoreText.text = "ハイスコア：" + highScore.ToString(); 
 
             timeAttack = false;
         }
@@ -146,6 +149,11 @@ public class GameManager : MonoBehaviour {
                    
                     currentPicture.GetComponent<Image>().sprite = sadHagePics[hagePicNums];
                     
+                    if(!isAnimated){
+                        currentPicture.GetComponent<RectTransform>().DOLocalMoveX(20f, 0.1f).SetEase(Ease.Flash, 2).SetLoops(10, LoopType.Yoyo);
+                        isAnimated = true;
+                    }
+
                     var token = this.GetCancellationTokenOnDestroy();
                     GameO(token).Forget();
                     //StartCoroutine("GameOver");
@@ -207,7 +215,9 @@ public class GameManager : MonoBehaviour {
                 if(timeLimit > 0) {
             
                 timeLimit -= Time.deltaTime; 
-                limit.GetComponent<TextMeshProUGUI>().text = "残り時間：" + timeLimit.ToString("N1");
+                limit.GetComponent<TextMeshProUGUI>().text = "残り時間：" + "<color=#ff4500>" + timeLimit.ToString("N1") + "</color>";
+
+
                 
                 } else {
 

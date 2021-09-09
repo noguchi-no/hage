@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class GameOverManager : MonoBehaviour
 {
-    
+    public Button gameButton;
     public SoundManager sm;
     bool isSounded = false;
     void Start() {
@@ -32,13 +32,13 @@ public class GameOverManager : MonoBehaviour
 
         if(GameManager.timeAttack){
 
-            transform.DOScale(1.05f, 0.4f).SetEase(Ease.OutElastic).OnComplete(() =>
+            transform.DOScale(gameButton.transform.localScale*1.1f, 0.4f).SetEase(Ease.OutElastic).OnComplete(() =>
         {
             SceneManager.LoadScene("TimeAttack");
         });
 
         } else{
-            transform.DOScale(1.05f, 0.4f).SetEase(Ease.OutElastic).OnComplete(() =>
+            transform.DOScale(gameButton.transform.localScale*1.1f, 0.4f).SetEase(Ease.OutElastic).OnComplete(() =>
         {
             SceneManager.LoadScene("Game");
         });

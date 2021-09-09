@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using System.Threading;
-//using DG.Tweening;
+using DG.Tweening;
 
 //はげの画像を操るスクリプト
 public class HagePicture : MonoBehaviour {
@@ -24,6 +24,7 @@ public class HagePicture : MonoBehaviour {
     float speed = -3600.0f;
     int hagePicNums;
     public bool isGO;
+    bool isAnimated;
     
     private async UniTaskVoid GameO(CancellationToken token)
     {
@@ -86,13 +87,17 @@ public class HagePicture : MonoBehaviour {
                     //Debug.Log(this.GetComponent<Image>().sprite);
 
                     isSad = true;
+                    if(!isAnimated){
+                        this.GetComponent<RectTransform>().DOLocalMoveX(20f, 0.1f).SetEase(Ease.Flash, 2).SetLoops(10, LoopType.Yoyo);
+                        isAnimated = true;
+                    }
                     
                     
                     gameManager.SaveHighScore(GameManager.score);
                     //↓Unitask2
                     var token = this.GetCancellationTokenOnDestroy();
                     GameO(token).Forget();
-                    
+
                     //DOVirtual.DelayedCall (1f, ()=>GOver());  
                     //StartCoroutine("GameOver");
                     //Invoke("GameOver", 1);

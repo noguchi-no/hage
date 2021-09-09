@@ -452,6 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d41ed522b5646f6a2e1079908c11ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameButton: {fileID: 0}
   sm: {fileID: 1332784828}
 --- !u!1 &760118348
 GameObject:
@@ -520,8 +521,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278848214
+  m_fontColor: {r: 0.8392157, g: 0.04045032, b: 0.04045032, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -931,6 +932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4bfcb3283f554b86829ebdec18bec99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toTitleButton: {fileID: 1016206021}
 --- !u!114 &1016206021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1083,7 +1085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9764151, b: 0.9764151, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1103,7 +1105,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 99
 --- !u!222 &1330964824
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1567,8 +1569,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4287496727
+  m_fontColor: {r: 0.09002129, g: 0.007876454, b: 0.5566038, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1694,6 +1696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d41ed522b5646f6a2e1079908c11ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameButton: {fileID: 1784567995}
   sm: {fileID: 1332784828}
 --- !u!114 &1784567995
 MonoBehaviour:
@@ -1851,7 +1854,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

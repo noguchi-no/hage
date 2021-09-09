@@ -18,7 +18,7 @@ public class GameOAnimation : MonoBehaviour
 
  
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if(GameManager.timeUp){
             gameOverText.text = "タイムアップ";
@@ -49,6 +49,6 @@ public class GameOAnimation : MonoBehaviour
                 .Join(newRecordText.DOFade(1.0f, 1.0f));
         }
 
-
+        //return;
     }
 }
