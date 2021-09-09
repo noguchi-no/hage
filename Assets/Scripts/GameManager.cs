@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour {
                 if(timeLimit > 0) {
             
                 timeLimit -= Time.deltaTime; 
-                limit.GetComponent<TextMeshProUGUI>().text = "残り時間：" + "<color=#ff4500>" + timeLimit.ToString("N1") + "</color>";
+                limit.GetComponent<TextMeshProUGUI>().text = "リミット：" + "<color=#ff4500>" + timeLimit.ToString("N1") + "</color>";
 
 
                 

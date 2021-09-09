@@ -3379,6 +3379,7 @@ MonoBehaviour:
   currentPicture: {fileID: 0}
   canvas: {fileID: 727594449}
   time4Ani: 2
+  titleText: {fileID: 1845428471}
 --- !u!4 &1385203187
 Transform:
   m_ObjectHideFlags: 0
@@ -3948,8 +3949,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u30CF\u30FC\u30B2\u30F3\u30BF\u30C3\u30D7"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 23c87cbc69b634628a08d35ea2299a74, type: 2}
+  m_sharedMaterial: {fileID: -7690869268044820931, guid: 23c87cbc69b634628a08d35ea2299a74, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
