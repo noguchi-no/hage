@@ -21,6 +21,8 @@ public class TitleAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //フレームレートの設定
+        Application.targetFrameRate = 60;
         titleText.alpha = 0;
         currentPicture = Instantiate(hagePrefab, new Vector2(0, 0), Quaternion.identity);
         int hagePicNums = Random.Range(0,5);
