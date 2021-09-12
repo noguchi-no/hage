@@ -41,14 +41,14 @@ public class GameOAnimation : MonoBehaviour
             .Append(unitText.DOFade(1f, 0.5f));
         
         //ニューレコードの表示
-        if(GameManager.hasNewRecord){
+        //if(GameManager.hasNewRecord){
 
             float positionX = newRecordText.rectTransform.anchoredPosition.x;
 
             sequence
                 .Append(newRecordText.rectTransform.DOAnchorPosX(positionX -100, 1.0f).From(true))
                 .Join(newRecordText.DOFade(1.0f, 1.0f));
-        }
+        //}
 
         //return;
     }
