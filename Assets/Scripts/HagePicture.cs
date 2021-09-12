@@ -88,11 +88,12 @@ public class HagePicture : MonoBehaviour {
 
                     isSad = true;
                     if(!isAnimated){
-                        this.GetComponent<RectTransform>().DOLocalMoveX(20f, 0.1f).SetEase(Ease.Flash, 2).SetLoops(10, LoopType.Yoyo);
+                        
+                        this.GetComponent<RectTransform>().DOShakePosition(1.0f, new Vector2(15, 0), 14, 0, false, false).SetEase(Ease.Linear);
                         isAnimated = true;
                     }
                     
-                    
+                            
                     gameManager.SaveHighScore(GameManager.score);
                     //↓Unitask2
                     var token = this.GetCancellationTokenOnDestroy();

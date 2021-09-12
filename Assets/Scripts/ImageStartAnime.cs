@@ -23,7 +23,7 @@ public class ImageStartAnime : MonoBehaviour
             if(Input.GetMouseButtonDown(0)){
 
             RectTransform rect = GetComponent<RectTransform>();
-            rect.DOScaleY(1.2f, 0.2f).SetEase(easeType).OnComplete(() => {GetComponent<Image>().DOFade(0, 0.2f).SetEase(easeType);});
+            rect.DOScaleY(1.2f, 0.3f).SetEase(easeType).OnComplete(() => {GetComponent<Image>().DOFade(0, 0.3f).SetEase(easeType);});
             
             isImageShowed = true;
             }

@@ -16,9 +16,9 @@ public class GameOAnimation : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI gameOverText;
 
- 
+    
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         if(GameManager.timeUp){
             gameOverText.text = "タイムアップ";
@@ -27,6 +27,7 @@ public class GameOAnimation : MonoBehaviour
         unitText.alpha = 0;
         gameOverText.alpha = 0;
         
+        Vector3 defaultScale = countText.GetComponent<RectTransform>().localScale;
 
         //スコア表示
         var sequence = DOTween.Sequence();
@@ -35,8 +36,8 @@ public class GameOAnimation : MonoBehaviour
             .Join(gameOverText.rectTransform.DOLocalMoveY(-40f, 1f).SetEase(Ease.InOutFlash).From(true))
             .Append(countText.DOFade(1f, 2f))
             .Join(countText.DOCounter(0, GameManager.score, 2.3f))
-            .AppendCallback(() => countText.transform.localScale = Vector3.one * 1.25f)
-            .Append(countText.transform.DOScale(Vector3.one, 0.5f))
+            .AppendCallback(() => countText.transform.localScale = defaultScale * 1.25f)
+            .Append(countText.transform.DOScale(defaultScale, 0.5f))
             .Append(unitText.DOFade(1f, 0.5f));
         
         //ニューレコードの表示

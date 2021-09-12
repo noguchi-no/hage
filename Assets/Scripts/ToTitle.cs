@@ -9,7 +9,7 @@ public class ToTitle : MonoBehaviour
 {
     public Button toTitleButton;
     public void OnClick() {
-        transform.DOScale(toTitleButton.transform.localScale*1.1f, 0.3f).SetEase(Ease.OutElastic).OnComplete(() =>
+        transform.DOScale(toTitleButton.transform.localScale*1.1f, 0.2f).SetEase(Ease.OutElastic).OnComplete(() =>
         {
             SceneManager.LoadScene("Title");
         });

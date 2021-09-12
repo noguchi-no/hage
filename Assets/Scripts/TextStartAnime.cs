@@ -23,8 +23,9 @@ public class TextStartAnime : MonoBehaviour
         if(!isTextShowed){
 
             if(Input.GetMouseButtonDown(0)){
+                startText.alpha = 0.9f;
                 RectTransform rect = GetComponent<RectTransform>();
-                rect.DOScale(2f, 0.5f).OnComplete(()=> { startText.DOFade(0,0.25f).SetEase(easeType); });
+                rect.DOScale(1.3f, 0.4f).OnComplete(()=> { startText.DOFade(0,0.25f).SetEase(easeType); });
 
                 isTextShowed = true;
                 DOTween.Kill(startText);

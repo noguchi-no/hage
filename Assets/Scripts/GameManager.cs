@@ -150,7 +150,8 @@ public class GameManager : MonoBehaviour {
                     currentPicture.GetComponent<Image>().sprite = sadHagePics[hagePicNums];
                     
                     if(!isAnimated){
-                        currentPicture.GetComponent<RectTransform>().DOLocalMoveX(20f, 0.1f).SetEase(Ease.Flash, 2).SetLoops(10, LoopType.Yoyo);
+                        
+                        currentPicture.GetComponent<RectTransform>().DOShakePosition(1.0f, new Vector2(15, 0), 14, 0, false, false).SetEase(Ease.Linear);
                         isAnimated = true;
                     }
 
@@ -162,6 +163,16 @@ public class GameManager : MonoBehaviour {
                     //return;
                 }
                 //ゲームバランス、要検討
+                if(countForLimit >= 25){
+
+                    gameOverTimeLimit = 1.0f;
+                
+                }
+                if(countForLimit >= 20){
+
+                    gameOverTimeLimit = 1.1f;
+                
+                }
                 if(countForLimit >= 15){
 
                     gameOverTimeLimit = 1.2f;
