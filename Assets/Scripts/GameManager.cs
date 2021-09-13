@@ -163,6 +163,16 @@ public class GameManager : MonoBehaviour {
                     //return;
                 }
                 //ゲームバランス、要検討
+                if(countForLimit >= 30){
+
+                    gameOverTimeLimit = 0.85f;
+                
+                }
+                if(countForLimit >= 30){
+
+                    gameOverTimeLimit = 0.9f;
+                
+                }
                 if(countForLimit >= 25){
 
                     gameOverTimeLimit = 1.0f;
