@@ -16,6 +16,8 @@ public class GameOAnimation : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI gameOverText;
 
+    public AudioSource aud;
+
     
     // Start is called before the first frame update
     void Start()
@@ -38,7 +40,10 @@ public class GameOAnimation : MonoBehaviour
             .Join(countText.DOCounter(0, GameManager.score, 2.3f))
             .AppendCallback(() => countText.transform.localScale = defaultScale * 1.25f)
             .Append(countText.transform.DOScale(defaultScale, 0.5f))
-            .Append(unitText.DOFade(1f, 0.5f));
+            .Append(unitText.DOFade(1f, 0.5f))
+            .OnComplete(() => {
+                aud.Play();
+            });
         
         //ニューレコードの表示
         //if(GameManager.hasNewRecord){
