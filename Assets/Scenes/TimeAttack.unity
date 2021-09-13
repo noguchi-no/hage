@@ -155,9 +155,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flickSE: {fileID: 8300000, guid: 844afa57b2ea84e6a8efac1dfac7b9e7, type: 3}
   tapSE: {fileID: 8300000, guid: cf5894225cc604e828e0f30969c79456, type: 3}
-  sadSE: {fileID: 8300000, guid: d99d99f56be6d4b95a40873e9eecab17, type: 3}
+  sadSE: {fileID: 8300000, guid: 7507124ae3ecd674d9b13be82dfd7855, type: 3}
   happySE: {fileID: 8300000, guid: a831656eb2a694413b2be0a048b8963b, type: 3}
-  startSE: {fileID: 8300000, guid: f2d311bb030964888a11f09038cf4d8d, type: 3}
+  startSE: {fileID: 8300000, guid: dfbb10dfaf21ea647bfdb9d1365af763, type: 3}
   gameoverSE: {fileID: 0}
   aud: {fileID: 94799343}
 --- !u!82 &94799343

@@ -8,7 +8,7 @@ public class SoundSlider : MonoBehaviour
 {
 
     Slider m_Slider;//音量調整用スライダー
-    float volume = 0.5f;
+    float volume = 1.0f;
 
     void Awake()
     {

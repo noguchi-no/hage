@@ -33,15 +33,15 @@ public class GameOverManager : MonoBehaviour
         if(GameManager.timeAttack){
 
             transform.DOScale(gameButton.transform.localScale*1.1f, 0.4f).SetEase(Ease.OutElastic).OnComplete(() =>
-        {
-            SceneManager.LoadScene("TimeAttack");
-        });
+            {
+                SceneManager.LoadScene("TimeAttack");
+            });
 
         } else{
             transform.DOScale(gameButton.transform.localScale*1.1f, 0.4f).SetEase(Ease.OutElastic).OnComplete(() =>
-        {
-            SceneManager.LoadScene("Game");
-        });
+            {
+                SceneManager.LoadScene("Game");
+            });
         }
         
 
