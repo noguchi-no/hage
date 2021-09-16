@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour {
     public bool isSounded = false;    
     public GameObject canvas;
     private bool isAnimated;
+
+    public bool isTimeUp = false;
     
     [System.Serializable]
     public class HighScoreData {
@@ -148,8 +150,11 @@ public class GameManager : MonoBehaviour {
                     }
                    
                     currentPicture.GetComponent<Image>().sprite = sadHagePics[hagePicNums];
-                    
-                    if(!isAnimated){
+
+                    currentPicture.GetComponent<Image>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    isTimeUp = true;
+
+                    if (!isAnimated){
                         
                         currentPicture.GetComponent<RectTransform>().DOShakePosition(1.0f, new Vector2(15, 0), 14, 0, false, false).SetEase(Ease.Linear);
                         isAnimated = true;
