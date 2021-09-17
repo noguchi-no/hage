@@ -10,10 +10,12 @@ public class GameOverManager : MonoBehaviour
     public Button gameButton;
     public SoundManager sm;
     bool isSounded = false;
+    public static int countForAdmob;
+
     void Start() {
 
-        //scoreText.GetComponent<Text>().text = "<size=100>" + GameManager.score.ToString() + "</size>" + "本抜き";
-    
+        countForAdmob++;
+        AdMobBanner.bannerView.Show();
     }
     
 

@@ -19,8 +19,17 @@ public class TitleAnimation : MonoBehaviour
     private List<int> rotateList = new List<int>{0, 360, 720};
     
     // Start is called before the first frame update
+    void Awake()
+    {
+        if(GameOverManager.countForAdmob >= 1){
+        
+            AdMobInters._interstitial.Show();
+            GameOverManager.countForAdmob = 0;
+            }
+    }
     void Start()
     {
+        
         //フレームレートの設定
         Application.targetFrameRate = 60;
         titleText.alpha = 0;
@@ -41,6 +50,7 @@ public class TitleAnimation : MonoBehaviour
                 .Join(currentPicture.GetComponent<RectTransform>().DOLocalRotate(new Vector3(rotateList[Random.Range(0,3)], rotateList[Random.Range(0,3)], rotateList[Random.Range(0,3)]), time4Ani, RotateMode.FastBeyond360))
                 .Join(titleText.DOFade(1, time4Ani)).SetEase(Ease.OutBack)
                 .Join(titleText.rectTransform.DOLocalMoveY(-50f, time4Ani).SetEase(Ease.OutBack).From(true));
+
     }
 
 }

@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour {
    }
    
     void Start() {
-
+        AdMobBanner.bannerView.Hide();
         score = 0;
         currentTime = gameOverTimeLimit;
         LoadHighScore();
@@ -167,51 +167,31 @@ public class GameManager : MonoBehaviour {
                     
                     //return;
                 }
-                //ゲームバランス、要検討
                 if(countForLimit >= 30){
 
-                    gameOverTimeLimit = 0.85f;
+                    gameOverTimeLimit = 1.4f;
                 
                 }
-                if(countForLimit >= 30){
+                else if(countForLimit >= 20){
 
-                    gameOverTimeLimit = 0.9f;
+                    gameOverTimeLimit = 1.6f;
                 
                 }
-                if(countForLimit >= 25){
+                else if(countForLimit >= 15){
 
-                    gameOverTimeLimit = 1.0f;
+                    gameOverTimeLimit = 1.8f;
                 
                 }
-                if(countForLimit >= 20){
-
-                    gameOverTimeLimit = 1.1f;
-                
-                }
-                if(countForLimit >= 15){
-
-                    gameOverTimeLimit = 1.2f;
-                
-                }
-                if(countForLimit >= 11){
-
-                    gameOverTimeLimit = 1.5f;
-                
-                }
-                if(countForLimit >= 8){
+                else if(countForLimit >= 10){
 
                     gameOverTimeLimit = 2.0f;
                 
                 }
-                if(countForLimit >= 4){
+                else if(countForLimit >= 5){
 
                     gameOverTimeLimit = 3.0f;
                 
-                } else if (countForLimit >= 2){
-
-                    gameOverTimeLimit = 4.0f;
                 }
-
             }       
 
         }
