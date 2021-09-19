@@ -21,7 +21,7 @@ public class TitleAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if(GameOverManager.countForAdmob >= 1){
+        if(GameOverManager.countForAdmob >= 3){
         
             AdMobInters._interstitial.Show();
             GameOverManager.countForAdmob = 0;

@@ -167,9 +167,14 @@ public class GameManager : MonoBehaviour {
                     
                     //return;
                 }
-                if(countForLimit >= 30){
+                if(countForLimit >= 40){
 
-                    gameOverTimeLimit = 1.4f;
+                    gameOverTimeLimit = 1.45f;
+                
+                }
+                else if(countForLimit >= 30){
+
+                    gameOverTimeLimit = 1.5f;
                 
                 }
                 else if(countForLimit >= 20){
@@ -244,9 +249,9 @@ public class GameManager : MonoBehaviour {
             currentPicture = Instantiate(hagePrefab, new Vector2(800, 0), Quaternion.identity);
         
             //hagePics最後をレアな画像にする
-            int probab = Random.Range(0, 101);
+            int probab = Random.Range(0, 100);
 
-            if(probab <= 92){
+            if(probab <= 95){
                 hagePicNums = Random.Range(0, hagePics.Length-2);
             }
             else{
@@ -315,18 +320,7 @@ public class GameManager : MonoBehaviour {
         highScore = highScoreData.highScore;
         highScoreOnTimeAttack = highScoreData.highScoreOnTimeAttack;
 
-    }
-        
-    
-    /*private IEnumerator GameOver(){
-
-        yield return new WaitForSeconds(timeForGameOver);
-
-        SceneManager.LoadScene("GameOver");
-        
-    }*/
-
-   
+    }   
    
     private IEnumerator GameStart(){
 
