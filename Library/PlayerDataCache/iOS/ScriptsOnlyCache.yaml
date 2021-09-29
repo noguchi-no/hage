@@ -9,6 +9,7 @@ ScriptsOnlyBuild:
     - GoogleMobileAdsInitializer
     - HagePicture
     - HairManager
+    - IDFA
     - ImageStartAnime
     - InterfaceAdjustment
     - Menu
@@ -24,7 +25,6 @@ ScriptsOnlyBuild:
     - DG.Tweening.Core.DOTweenSettings
     GoogleMobileAds.Editor.dll:
     - GoogleMobileAds.Editor.GoogleMobileAdsSettings
-    - GoogleMobileAds.Editor.GoogleMobileAdsSettingsEditor
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro.dll:
@@ -338,6 +338,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 4548}
     - Class: 114
       Script: {instanceID: 16456}
+    - Class: 114
+      Script: {instanceID: 17180}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1243,6 +1245,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: FPS
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: IDFA
   platform: 9
   scenePathNames:
   - Assets/Scenes/Title.unity
