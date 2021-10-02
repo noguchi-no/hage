@@ -56,15 +56,18 @@
     <Compile Include="Assets\Scripts\IDFA.cs" />
     <Compile Include="Assets\Scripts\GameOverManager.cs" />
     <Compile Include="Assets\Scripts\GameOAnimation.cs" />
+    <Compile Include="Assets\SocialConnector\Sample\Sample.cs" />
     <Compile Include="Assets\Scripts\PopButton.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\ImageStartAnime.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\ShareButton.cs" />
     <Compile Include="Assets\Scripts\TextStartAnime.cs" />
     <Compile Include="Assets\Scripts\BgmManager.cs" />
     <Compile Include="Assets\Scripts\ToGame.cs" />
     <Compile Include="Assets\Scripts\HairManager.cs" />
+    <Compile Include="Assets\SocialConnector\SocialConnector.cs" />
     <Compile Include="Assets\Scripts\AdMobBanner.cs" />
     <Compile Include="Assets\Scripts\GO4Coroutine.cs" />
     <Compile Include="Assets\Scripts\SoundSlider.cs" />
@@ -76,9 +79,7 @@
     <Compile Include="Assets\Scripts\GoogleMobileAdsInitializer.cs" />
     <Compile Include="Assets\Scripts\ToTimeAttack.cs" />
     <Compile Include="Assets\Scripts\FPS.cs" />
-    <Compile Include="Assets\SocialConnector\SocialConnector.cs" />
-    <Compile Include="Assets\SocialConnector\Sample\Sample.cs" />
-    <Compile Include="Assets\Scripts\ShareButton.cs" />
+    <Compile Include="Assets\Scripts\ReviewButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
